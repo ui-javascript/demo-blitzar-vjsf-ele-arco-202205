@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+       
+    <% if (htmlWebpackPlugin.options._browserPage && htmlWebpackPlugin.options._browserPage.length > 0) { %>
+    
+      <% for(var i=0; i< htmlWebpackPlugin.options._browserPage.length; i++) {%>
+      
+          <a style="display: inline-block;margin-right: 10px;" href='<%= htmlWebpackPlugin.options._browserPage[i] %>'>
+            <%= htmlWebpackPlugin.options._browserPage[i] %>
+          </a>
+      
+        <% } %>
+     
+    
+      <hr />
+    <% } %>
+    
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
