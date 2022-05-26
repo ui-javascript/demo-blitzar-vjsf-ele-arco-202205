@@ -13,8 +13,20 @@ import { z } from "zod";
 import zodToJsonSchema from "zod-to-json-schema";
 
 const mySchema = z.object({
-  myString: z.string().min(5),
-  test: z.date()
+  name: z.string().min(5),
+  email: z.string().email(),
+  date: z.date()
+    // .default(new Date().toString())
+    .optional(),
+  select: z.enum(['hello', 'hi', 'how are you'])
+    // .default(null)
+    .optional(),
+  age: z.number(),
+  isOk: z.boolean().default(false),
+
+  // @todo
+  // id: z.bigint(),
+  // @todo 联合类型的支持  
   // myUnion: z.union([z.number(), z.boolean()]),
 });
 
