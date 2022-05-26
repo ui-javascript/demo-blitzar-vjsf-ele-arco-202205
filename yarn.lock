@@ -1037,6 +1037,28 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@lljj/vjsf-utils@1.12.2":
+  version "1.12.2"
+  resolved "https://registry.yarnpkg.com/@lljj/vjsf-utils/-/vjsf-utils-1.12.2.tgz#b5420465d5482eade6cbe568a502abc23a1d6298"
+  integrity sha512-chyBkvCGMy/yh+3cow8BK+NWu3Ly/Kwkeb490qo3DE3J0XIMXahBFQ15w8UTbn5ZCvsNdy8tEONC2q/NXTxIjQ==
+  dependencies:
+    ajv "^6.10.2"
+
+"@lljj/vue3-form-core@1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@lljj/vue3-form-core/-/vue3-form-core-1.13.0.tgz#05c5c24bb70998a160ef8360cb4d2e8a2b8db1c6"
+  integrity sha512-uZZ6mD/mNyNLt3RktcI6/EQOUn2oKFbIafMNKFFv2biT63pjEZSjoZPoPLVqa0zoL1M03uM4/VXDL1IxjklxXA==
+  dependencies:
+    "@lljj/vjsf-utils" "1.12.2"
+
+"@lljj/vue3-form-element@^1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@lljj/vue3-form-element/-/vue3-form-element-1.13.0.tgz#913a4caa9ff0ebc82d85430c69d9626855f3e3b2"
+  integrity sha512-S2mop4BFyKySXNPBisAwUN2OfKlqDAtJthbH931lXEuRs9AQ/FetbexFbpNMX/kK0P6o7EPV2cDoeDO89gaXLg==
+  dependencies:
+    "@lljj/vjsf-utils" "1.12.2"
+    "@lljj/vue3-form-core" "1.13.0"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmmirror.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -1857,7 +1879,7 @@ ajv-keywords@^5.0.0:
   dependencies:
     fast-deep-equal "^3.1.3"
 
-ajv@^6.10.0, ajv@^6.12.4, ajv@^6.12.5:
+ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.4, ajv@^6.12.5:
   version "6.12.6"
   resolved "https://registry.npmmirror.com/ajv/-/ajv-6.12.6.tgz"
   integrity sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==
@@ -6454,3 +6476,13 @@ yorkie@^2.0.0:
     is-ci "^1.0.10"
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
+
+zod-to-json-schema@^3.17.0:
+  version "3.17.0"
+  resolved "https://registry.yarnpkg.com/zod-to-json-schema/-/zod-to-json-schema-3.17.0.tgz#dbfb61b10342c4d02fb2cacfa60d54d564e03458"
+  integrity sha512-Ioxmh41HTo4xAip7DPy79ysvGibPnDxzGoPNcNT+1dxwLjeXf/BruRnj7sRJAe2p4z8vTx6d62CXigEPTz6DqQ==
+
+zod@^3.17.3:
+  version "3.17.3"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.17.3.tgz#86abbc670ff0063a4588d85a4dcc917d6e4af2ba"
+  integrity sha512-4oKP5zvG6GGbMlqBkI5FESOAweldEhSOZ6LI6cG+JzUT7ofj1ZOC0PJudpQOpT1iqOFpYYtX5Pw0+o403y4bcg==
