@@ -30,8 +30,11 @@ const mySchema = z.object({
   // myUnion: z.union([z.number(), z.boolean()]),
 });
 
-const jsonSchema = zodToJsonSchema(mySchema, 'zod');
 
+const jsonSchema = zodToJsonSchema(mySchema, {
+  // name: 'zod',
+  // target: 'openApi3'
+});
 console.log(jsonSchema)
 
 // {
@@ -95,7 +98,7 @@ export default {
         //     }
         // },
 
-        schema: jsonSchema.definitions['zod']
+        schema: jsonSchema
     };
   }
 
