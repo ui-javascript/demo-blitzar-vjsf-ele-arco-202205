@@ -24,6 +24,8 @@ const mySchema = z.object({
   age: z.number(),
   isOk: z.boolean().default(false),
 
+  // password: z.password(),
+
   // @todo
   // id: z.bigint(),
   // @todo 联合类型的支持  
@@ -35,7 +37,6 @@ const jsonSchema = zodToJsonSchema(mySchema, {
   // name: 'zod',
   // target: 'openApi3'
 });
-console.log(jsonSchema)
 
 // {
 //   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -57,6 +58,17 @@ console.log(jsonSchema)
 //     }
 //   }
 // }
+
+
+for (let key in jsonSchema.properties) {
+  console.log("key", key)
+
+ if (!jsonSchema.properties[key].title) {
+    jsonSchema.properties[key].title = key
+  } 
+}
+
+console.log(jsonSchema)
 
 export default {
   name: 'App',
