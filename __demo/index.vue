@@ -2,6 +2,7 @@
   <VueForm
     v-model="formData"
     :schema="schema"
+    @submit="submit"
   >
   </VueForm>
 </template>
@@ -21,8 +22,18 @@ const mySchema = z.object({
   select: z.enum(['hello', 'hi', 'how are you'])
     // .default(null)
     .optional(),
+
+
+
   age: z.number(),
   isOk: z.boolean().default(false),
+
+
+  // enumName这样的字段不支持 
+  select2: z.nativeEnum({
+    a: 'a1',
+    b: 'b1' 
+  }),
 
   // password: z.password(),
 
@@ -70,11 +81,18 @@ for (let key in jsonSchema.properties) {
 
 console.log(jsonSchema)
 
+
 export default {
   name: 'App',
   
   components: {
     VueForm
+  },
+
+  methods: {
+    submit(item) {
+      console.log(item)
+    }
   },
 
   data() {
