@@ -12,9 +12,9 @@ module.exports = {
     // showNav: false,
     showNav: true,
   
-    // entry: './__demo/demo*.js',
     
-    entry: './__demo/*.js',
+    entry: './_arco/*.js',
 
-    // entry: './_hooks/**/*.js',
+    entry: './_blitzar/*.js',
+
 }

@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import ArcoVue from '@arco-design/web-vue';
-import App from './formcreate-arco.vue';
+import App from './index.vue';
 import '@arco-design/web-vue/dist/arco.css';
 import formCreate from '@form-create/arco-design'
 

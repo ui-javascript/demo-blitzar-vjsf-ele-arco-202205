@@ -9,12 +9,16 @@ export default {
     data() {
         return {
             fApi: {},
+
             value: {},
+            
             options: {
                 onSubmit: (formData) => {
                     alert(JSON.stringify(formData))
-                }
+                },
+                resetBtn: true,
             },
+            
             rule: [
                 {
                     type: 'group',
