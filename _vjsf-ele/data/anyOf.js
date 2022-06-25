@@ -123,6 +123,7 @@ export const jsonSchema = {
 export const uiSchema = {
     userInfo: {
         anyOfSelect: {
+            // 默认是select, radio需要单独指定
             'ui:widget': 'RadioWidget'
         },
         anyOf: [
