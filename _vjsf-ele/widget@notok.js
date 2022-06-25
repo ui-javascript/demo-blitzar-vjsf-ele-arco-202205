@@ -1,9 +1,14 @@
 import { createApp } from 'vue'
+// import Vue from 'vue';
+
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import VueForm from '@lljj/vue3-form-element';
+// import VueForm from '@lljj/vue3-form-element';
+import VueForm from '@lljj/vue-json-schema-form';
 
-import jsonSchema from './data/index'
+import jsonSchema from './data/widget';
+
+// Vue.component('VueForm', VueForm);
 
 const App = {
     template: `
