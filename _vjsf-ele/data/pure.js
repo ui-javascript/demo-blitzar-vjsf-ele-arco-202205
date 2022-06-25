@@ -32,3 +32,5 @@ export const jsonSchema = {
         }
     }
 }
+
+export default jsonSchema;

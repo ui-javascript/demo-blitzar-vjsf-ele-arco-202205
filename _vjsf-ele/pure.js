@@ -7,9 +7,12 @@ import VueForm from '@lljj/vue3-form-element';
 import {jsonSchema, uiSchema} from './data/pure'
 
 const App = {
+    name: 'App',
+
     template: `
     <VueForm 
     v-model="formData" 
+    :ui-schema="uiSchema" 
     :schema="schema" 
     :form-props="{
       layoutColumn: 2,
