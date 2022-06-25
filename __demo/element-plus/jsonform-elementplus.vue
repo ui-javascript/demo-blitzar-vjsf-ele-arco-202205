@@ -23,8 +23,6 @@ const mySchema = z.object({
     // .default(null)
     .optional(),
 
-
-
   age: z.number(),
   isOk: z.boolean().default(false),
 
@@ -74,6 +72,7 @@ const jsonSchema = zodToJsonSchema(mySchema, {
 for (let key in jsonSchema.properties) {
   console.log("key", key)
 
+  // 添加title字段
  if (!jsonSchema.properties[key].title) {
     jsonSchema.properties[key].title = key
   } 
