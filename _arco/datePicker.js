@@ -3,12 +3,12 @@ import ArcoVue from '@arco-design/web-vue';
 import '@arco-design/web-vue/dist/arco.css';
 import formCreate from '@form-create/arco-design'
 
-import rule from "./data"
+import rule from "./data/datePicker"
 
 const App = {
     template: `
   <div>
-  <p>value: {{ value.group }}</p>
+ <p>value: {{ value.group }}</p>
   <form-create v-model:api="fApi" v-model="value" :rule="rule" :option="options" />
   </div>
     `,
@@ -22,7 +22,8 @@ const App = {
                 onSubmit: (formData) => {
                     alert(JSON.stringify(formData))
                 },
-                resetBtn: true,
+                // resetBtn: false,
+                // submitBtn: false,
             },
             
             rule, 
