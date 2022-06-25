@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import App from './jsonform-elementplus.vue'
+import App from './index.vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
