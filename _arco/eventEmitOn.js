@@ -3,7 +3,7 @@ import ArcoVue from '@arco-design/web-vue';
 import '@arco-design/web-vue/dist/arco.css';
 import formCreate from '@form-create/arco-design'
 
-import rule from "./data/eventEmit"
+import rule from "./data/eventEmitOn"
 
 const App = {
     template: `
@@ -45,7 +45,7 @@ const App = {
 
     mounted() {
         this.fApi.on('prefix1-change',this.change)
-        this.fApi.on('input-field2-blur',this.blur)
+        this.fApi.on('prefix2-blur',this.blur)
     }
    
   }

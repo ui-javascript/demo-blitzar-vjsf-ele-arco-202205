@@ -23,6 +23,25 @@ const App = {
                     alert(JSON.stringify(formData))
                 },
                 resetBtn: true,
+
+
+                global: {
+                    '*': {
+                        props: {
+                            // disabled: true
+                        },
+                        col: {
+                            span: 24
+                        }
+                    },
+                    upload: {
+                        props: {
+                            onError: function(){
+                              alert('上传失败')
+                            }
+                        }
+                    }
+                }
             },
             
             rule, 
