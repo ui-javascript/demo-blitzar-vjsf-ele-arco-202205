@@ -1,6 +1,6 @@
 <template>
-    <blitz-form :actionButtons="['edit', 'cancel', 'save', 'delete']" @delete="() => { }" v-model="formData"
-        :schema="schema" :columnCount="2" />
+    <blitz-form labelPosition="left" :actionButtons="['edit', 'cancel', 'save', 'delete']" @delete="() => { }"
+        v-model="formData" :schema="schema" :columnCount="2" />
 
 </template>
 
@@ -14,13 +14,13 @@ const schema = [
         id: 'name',
         component: 'AInput',
         label: 'Superhero name',
-        subLabel: 'Think of something cool.',
+        // subLabel: 'Think of something cool.',
         placeholder: 'Something',
-      
-        props: {
-            "allow-clear": true,
-            allowClear: true,
-        }
+
+        // props: {
+        //     "allow-clear": true,
+        //     allowClear: true,
+        // }
     },
     {
         id: 'powerOrigin',

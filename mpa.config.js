@@ -15,6 +15,6 @@ module.exports = {
     
     entry: './_arco/*.js',
 
-    entry: './_blitzar/*.js',
+    // entry: './_blitzar/*.js',
 
 }
