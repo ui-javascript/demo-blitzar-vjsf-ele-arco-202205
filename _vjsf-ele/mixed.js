@@ -3,18 +3,20 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import VueForm from '@lljj/vue3-form-element';
 
-import jsonSchema from './data/simple'
+import jsonSchema from './data/mixed'
 
 const App = {
     template: `
-    <VueForm v-model="formData" :schema="schema" 
-    :formProps="{
+    <VueForm 
+    v-model="formData" 
+    :schema="schema" 
+    :form-props="{
       layoutColumn: 2,
       labelWidth: '100px',
       // inlineFooter: true,
       labelPosition: 'left',
-    }" @submit="submit">
-    </VueForm>
+    }" 
+    @submit="submit"></VueForm>
     `,
 
     components: {
