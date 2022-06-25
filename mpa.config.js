@@ -13,9 +13,9 @@ module.exports = {
     showNav: true,
   
     
-    entry: './_formcreate-arco/*.js',
+    // entry: './_formcreate-arco/*.js',
 
-    // entry: './_jsonform-elementplus/*.js',
+    entry: './_jsonform-ele/*.js',
 
     // entry: './_blitzar/*.js',
 
