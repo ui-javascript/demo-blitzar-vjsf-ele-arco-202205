@@ -14,7 +14,10 @@ function getEntry (globPath) {
     let entries = {}
     let browserPages = []
 
-    glob.sync(globPath).forEach(function (entry) {
+    glob.sync(globPath, {
+        // @todo 没有生效
+        // ignore: ['**/*@bak.js']
+    }).forEach(function (entry) {
 
         // 切割路径 --> [ '.', '_project', 'module', 'foo.js' ]
         // --> ['_project', 'module', 'foo.js' ]
