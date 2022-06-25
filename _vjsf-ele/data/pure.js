@@ -1,4 +1,4 @@
-export const uiShema = {
+export const uiSchema = {
     bio: {
         'ui:options': {
             placeholder: '请输入你的签名',
@@ -8,7 +8,7 @@ export const uiShema = {
     }
 }
 
-export const jsonShema = {
+export const jsonSchema = {
     type: 'object',
     required: [
         'userName',
