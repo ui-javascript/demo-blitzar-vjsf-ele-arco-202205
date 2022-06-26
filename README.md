@@ -1,3 +1,3 @@
 # README
 
-formily比较完善, 但实在太复杂了, 极难改造
+formily比较完善, 但比较复杂, 很难改造 @hard
