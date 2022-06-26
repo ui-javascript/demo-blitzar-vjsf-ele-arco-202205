@@ -1,0 +1,51 @@
+<template>
+  <ElButton @click="handleOpen">点击打开表单</ElButton>
+</template>
+
+<script setup>
+import { FormDrawer, FormLayout, FormItem, Input } from '@formily/element-plus'
+import { ElButton } from 'element-plus'
+import { createSchemaField } from '@formily/vue'
+import schema from "./index.data"
+
+const { SchemaField } = createSchemaField({
+  components: {
+    FormItem,
+    Input,
+  },
+})
+
+// 抽屉表单组件
+const DrawerForm = {
+  data() {
+    return {
+      schema,
+    }
+  },
+  render() {
+    return (
+      <FormLayout labelCol={6} wrapperCol={10}>
+        <SchemaField schema={this.schema} />
+        <FormDrawer.Footer>
+          <span style={{ marginLeft: '4px' }}>扩展文案</span>
+        </FormDrawer.Footer>
+      </FormLayout>
+    )
+  },
+}
+
+const handleOpen = () => {
+  FormDrawer('抽屉表单', DrawerForm)
+    .open({
+      initialValues: {
+        aaa: '123',
+      },
+    })
+    .then((values) => {
+      console.log('values', values)
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+}
+</script>

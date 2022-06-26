@@ -1,4 +1,4 @@
-export default {
+const schema = {
   type: 'object',
   properties: {
     aaa: {
@@ -31,3 +31,6 @@ export default {
     },
   },
 }
+
+
+export default schema;

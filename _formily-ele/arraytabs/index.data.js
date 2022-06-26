@@ -1,4 +1,4 @@
-export default {
+const schema = {
   type: 'object',
   properties: {
     string_array: {
@@ -42,3 +42,5 @@ export default {
     },
   },
 }
+
+export default schema

@@ -1,4 +1,4 @@
-export default {
+ const schema = {
   type: 'object',
   properties: {
     array: {
@@ -70,3 +70,5 @@ export default {
     },
   },
 }
+
+export default schema;

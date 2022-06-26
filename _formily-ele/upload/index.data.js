@@ -1,4 +1,4 @@
-export default {
+const schema = {
   type: "object",
   properties: {
     base: {
@@ -37,3 +37,5 @@ export default {
     },
   },
 };
+
+export default schema;
