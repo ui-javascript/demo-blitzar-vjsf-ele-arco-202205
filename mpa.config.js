@@ -17,8 +17,8 @@ module.exports = {
 
     // entry: './_vjsf-ele/*.js',
 
-    entry: './_formily-ele/**/index.js',
+    // entry: './_formily-ele/**/index.js',
 
-    // entry: './_blitzar/*.js',
+    entry: './_blitzar/**/index.js',
 
 }
