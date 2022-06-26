@@ -165,6 +165,13 @@ export default [
     label: "TimePicker",
   },
 
+  
+  {
+    id: "Upload",
+    component: "Upload",
+    label: "Upload",
+  },
+
   {
     id: "Avatar",
     component: "Avatar",

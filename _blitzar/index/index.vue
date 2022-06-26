@@ -89,6 +89,8 @@ const actionButtonDefaults = {
 
 <style scoped lang="less">
 .demo {
+    padding: 10px;
+
     :deep(.blitz-field__label, .blitz-field__sub-label) {
         width: 100px;
     }
