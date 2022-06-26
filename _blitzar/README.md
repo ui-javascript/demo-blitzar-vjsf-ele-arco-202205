@@ -12,5 +12,4 @@ fieldClasses componentClasses
 
 parseValue parseInput 
 
-
 events

@@ -1,17 +1,19 @@
 <template>
-    <div style="padding: 10px;">
-        <Select id="mode" v-model="mode" name="mode" style="margin-bottom: 1rem">
-            <Option value="edit">edit</Option>
-            <Option value="readonly">readonly</Option>
-            <Option value="disabled">disabled</Option>
-            <Option value="raw">raw</Option>
+    <div class="demo">
+        <Select id="mode" v-model="mode" name="mode" style="margin-bottom: 1rem;width: 250px;">
+            <Option value="edit">编辑模式</Option>
+            <Option value="readonly">只读模式</Option>
+            <Option value="disabled">禁用模式</Option>
+            <Option value="raw">文本模式</Option>
         </Select>
 
         <blitz-form
             labelPosition="left"
+            labelWidth="100px"
+            actionButtonsPosition="bottom"
             v-model="formData"
             :mode="mode"
-            :actionButtons="['edit', 'cancel', 'save', 'delete']"
+            :actionButtons="['save']"
             :actionButtonDefaults="actionButtonDefaults"
             :schema="schema"
             :columnCount="2"
@@ -29,6 +31,8 @@ import 'blitzar/dist/style.css'
 import schema from './schema';
 
 const formData = ref({})
+const mode = ref('edit')
+
 
 const handleDelete = () => {
 
@@ -39,41 +43,54 @@ const handleUpdateField = (obj) => {
 }
 
 const handleSave = ({ formData, newData, oldData }) => {
-    console.log('formData', formData)
+    alert(JSON.stringify(formData, null, 2))
+    // console.log('formData', formData)
     console.log('newData', newData)
     console.log('oldData', oldData)
 }
 
 
 const actionButtonDefaults = {
-    edit: {
-        slot: `编辑`,
-        component: 'Button',
-        type: "outline",
-        // componentClasses: 'my-button-class',
-    },
-    cancel: {
-        slot: `取消`,
-        component: 'Button',
-        type: "outline",
-        // componentStyle: 'background: none; border: none;' 
-    },
+    // edit: {
+    //     slot: `编辑`,
+    //     component: 'Button',
+    //     type: "outline",
+    //     // componentClasses: 'my-button-class',
+    // },
+    // cancel: {
+    //     slot: `取消`,
+    //     component: 'Button',
+    //     type: "outline",
+    //     // componentStyle: 'background: none; border: none;' 
+    // },
     save: {
         slot: `保存`,
         component: 'Button',
         type: "outline",
+        showCondition: (_, { mode }) => {
+            // @tofix mode一直显示'edit'
+            console.log(mode)
+            return mode == 'edit'
+        },
         // componentStyle: 'background: none; border: thin solid green; color: green',
     },
-    delete: {
-        slot: `删除`,
-        component: 'Button',
-        type: "outline",
-        // status: "danger",
-        showCondition: (_, { mode }) => mode !== 'edit',
-        // componentStyle: 'background: none; border: none; color: crimson',
-    },
+    // delete: {
+    //     slot: `删除`,
+    //     component: 'Button',
+    //     type: "outline",
+    //     // status: "danger",
+    //     showCondition: (_, { mode }) => mode !== 'edit',
+    //     // componentStyle: 'background: none; border: none; color: crimson',
+    // },
 }
 
-const mode = ref('readonly')
 
 </script>
+
+<style scoped lang="less">
+.demo {
+    :deep(.blitz-field__label, .blitz-field__sub-label) {
+        width: 100px;
+    }
+}
+</style>
