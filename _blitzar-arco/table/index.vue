@@ -7,30 +7,9 @@
       <Option value="raw">文本模式</Option>
     </Select>
 
-    <BlitzTable
-      :schemaColumns="schema"
-      :schemaGrid="schema"
-      :rows="rows"
-      :searchField="{
-        component: 'Input',
-        placeholder: 'Search...',
-        debounce: 300,
-        clearable: true,
-      }"
-          @rowDeleted="(rowIndex) => rowDeleted(rowIndex)"
-      @updateCell="onUpdateCell"
-      :mode="mode"
-      :paginationField="{
-        component: 'Pagination',
-        total: 50,
-        showPageSize: true,
-      }"
-    />
+    <BlitzTable labelPosition="left" :schemaColumns="schema" :rows="data" :mode="mode" :paginationField="paginationField"
+      :searchField="searchField" @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
 
-
-<pre>
-{{ JSON.stringify(rows, null, 2) }}
-</pre>
   </div>
 </template>
 
@@ -38,68 +17,133 @@
 import { ref } from "vue"
 import { BlitzTable } from 'blitzar'
 import 'blitzar/dist/style.css'
-import schema from './schema';
+// import schema from './schema';
+import data from "./data"
+// import { ROW_SELECTION_ID } from 'blitzar'
 
 const mode = ref('edit')
+const rows = ref(data)
 
-const rows = ref([
+const schema = [
+  // { id: ROW_SELECTION_ID, label: '选择', component: 'Checkbox', style: 'width: 100px' },
+  
   {
-    id: 'id8269187329780852',
-    balance: 93683,
-    birthdate: '1946-07-22',
-    firstName: 'Harper',
-    lastName: 'Nolan',
-    company: 'Tortor At Risus LLC',
+    label: '#️',
+    component: 'InputNumber',
+    sortable: true,
+    // class: "arco-table-td arco-table-cell",
+    parseValue: (_, formContext) => {
+      return formContext.rowIndex + 1
+    },
   },
   {
-    id: 'id44304518826349204', balance: 69632, birthdate: '1945-11-27', firstName: 'Whoopi', lastName: 'David', company: 'Ipsum Institute'
-  }, // prettier-ignore
+    id: "firstName",
+    label: "First Name",
+    component: "Input",
+    // class: "arco-table-td arco-table-cell",
+  },
   {
-    id: 'id5068577691466047', balance: 75903, birthdate: '1955-10-01', firstName: 'Peter', lastName: 'Mendez', company: 'Curabitur Dictum LLC'
-  }, // prettier-ignore
+    id: "lastName",
+    label: "Last Name",
+    component: "Input",
+    // class: "arco-table-td arco-table-cell",
+  },
   {
-    id: 'id05232596295403691', balance: 53509, birthdate: '1977-06-21', firstName: 'Harrison', lastName: 'Miller', company: 'Enim Etiam Imperdiet Industries'
-  }, // prettier-ignore
+    id: "company",
+    label: "Company",
+    // component: "Textarea",
+    component: "Input",
+    // class: "arco-table-td arco-table-cell",
+  },
   {
-    id: 'id23809333906635666', balance: 93450, birthdate: '2017-11-27', firstName: 'Wendy', lastName: 'Strong', company: 'Ac PC'
-  }, // prettier-ignore
+    id: "birthdate",
+    label: "Birthdate",
+    component: "DatePicker",
+    // class: "arco-table-td arco-table-cell",
+  },
   {
-    id: 'id7894530275645739', balance: 64590, birthdate: '1975-12-10', firstName: 'Kyla', lastName: 'Dalton', company: 'Urna Nec Luctus PC'
-  }, // prettier-ignore
+    id: "balance",
+    label: "Balance",
+    component: "InputNumber",
+    // class: "arco-table-td arco-table-cell",
+    // parseValue: (val) => val.toLocaleString(),
+  },
+
+  // 这里用到了函数
   {
-    id: 'id9425069129254229', balance: 72444, birthdate: '2001-07-31', firstName: 'Aimee', lastName: 'Stephens', company: 'Tempus Incorporated'
-  }, // prettier-ignore
-  {
-    id: 'id5539749518518775', balance: 99856, birthdate: '1972-01-28', firstName: 'Phelan', lastName: 'Jennings', company: 'Consectetuer Adipiscing Elit LLP'
-  }, // prettier-ignore
-  {
-    id: 'id9413108287279646', balance: 83325, birthdate: '1966-11-17', firstName: 'Xena', lastName: 'Emerson', company: 'Mollis Foundation'
-  }, // prettier-ignore
-  {
-    id: 'id8560871658852105', balance: 50981, birthdate: '1995-07-26', firstName: 'Althea', lastName: 'Mcdaniel', company: 'Non Foundation'
-  }, // prettier-ignore
-  {
-    id: 'id04508174972460055', balance: 97869, birthdate: '1945-10-01', firstName: 'Shad', lastName: 'Beard', company: 'Mollis Incorporated'
-  }, // prettier-ignore
-])
+    mode: 'edit',
+    component: 'div',
+    // class: "arco-table-td arco-table-cell",
+    dynamicProps: ['showCondition'],
+    showCondition: () => mode.value === 'edit',
+    slot: {
+      type: 'text',
+      slot: '删除',
+      component: 'Button',
+      events: {
+        click: (pointerEvent, formContext) => {
+          // formContext.deleteRow()
+          console.log(pointerEvent, formContext)
+        },
+      },
+    }
+  },
+];
+
+
+const paginationField = {
+  component: 'Pagination',
+  total: 50,
+  showPageSize: true,
+}
+
+const searchField = {
+  component: 'Input',
+  placeholder: 'Search...',
+  debounce: 300,
+  clearable: true,
+}
+
 
 const onUpdateCell = ({ rowId, colId, value, origin }) => {
   console.log('@updateCell', { rowId, colId, value, origin })
   const row = rows.value.find((r) => r.id === rowId)
   if (!row) return
+  console.log("修改")
   row[colId] = value
+
+  console.log(rows.value)
 }
 
-
-function rowDeleted(rowIndex) {
+const rowDeleted = (rowIndex) => {
+  console.log(rowIndex)
+  data.splice(rowIndex, 1)
   rows.value.splice(rowIndex, 1)
+
+  console.log(rows.value)
 }
-
-
 </script>
 
 <style scoped lang="less">
 .demo {
   padding: 10px;
+
+  :deep(td) {
+    font-size: 14px;
+    // padding: 4px 4px;
+
+    box-sizing: border-box;
+    color: rgb(var(--gray-10));
+    line-height: 1.5715;
+    text-align: left;
+    word-break: break-all;
+    background-color: var(--color-bg-2);
+    border-bottom: 1px solid var(--color-neutral-3);
+  }
+
+  :deep(th) {
+    text-align: left;
+  }
+
 }
 </style>

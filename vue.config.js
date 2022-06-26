@@ -51,8 +51,8 @@ module.exports = defineConfig({
   runtimeCompiler: true,
   configureWebpack: {
     plugins: [
-      require('unplugin-vue-components/webpack')({ }),
-      require("unplugin-vue-script-name/webpack").default({ })
+      require('unplugin-vue-components/webpack')({}),
+      require("unplugin-vue-setup-extend/webpack")({}),
     ],
     resolve: {
       alias: {

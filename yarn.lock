@@ -4754,6 +4754,13 @@
   dependencies:
     "sourcemap-codec" "^1.4.8"
 
+"magic-string@^0.26.1":
+  "integrity" "sha512-NzzlXpclt5zAbmo6h6jNc8zl2gNRGHvmsZW4IvZhTC4W7k4OlLP+S5YLussa/r3ixNT66KOQfNORlXHSOy/X4A=="
+  "resolved" "https://registry.npmjs.org/magic-string/-/magic-string-0.26.2.tgz"
+  "version" "0.26.2"
+  dependencies:
+    "sourcemap-codec" "^1.4.8"
+
 "magic-string@^0.26.2":
   "integrity" "sha512-NzzlXpclt5zAbmo6h6jNc8zl2gNRGHvmsZW4IvZhTC4W7k4OlLP+S5YLussa/r3ixNT66KOQfNORlXHSOy/X4A=="
   "resolved" "https://registry.npmjs.org/magic-string/-/magic-string-0.26.2.tgz"
@@ -6705,19 +6712,14 @@
     "resolve" "^1.22.0"
     "unplugin" "^0.7.0"
 
-"unplugin-vue-script-name@^0.1.5":
-  "integrity" "sha512-PighxzQnaTUisqMyDtoxatPb/7lVXPGqFwrwF4Jcw4Qgjd4t5V1klszeF5oePfm8zSh+nBmIjcDTWn8dRcs+8g=="
-  "resolved" "https://registry.npmjs.org/unplugin-vue-script-name/-/unplugin-vue-script-name-0.1.5.tgz"
-  "version" "0.1.5"
+"unplugin-vue-setup-extend@^0.2.4":
+  "integrity" "sha512-tEm8usF2Fz08Yb+7LXPgtnHAOuoNkm1hTlodMqV1JImm5hoOq8QYQ9MWYjBAr6y5xWhpGnnStg/VeWDGgTgUFw=="
+  "resolved" "https://registry.npmjs.org/unplugin-vue-setup-extend/-/unplugin-vue-setup-extend-0.2.4.tgz"
+  "version" "0.2.4"
   dependencies:
-    "unplugin" "^0.2.7"
-
-"unplugin@^0.2.7":
-  "integrity" "sha512-IJ15/L5XbhnV7J09Zjk0FT5HEkBjkXucWAXQWRsmEtUxmmxwh23yavrmDbCF6ZPxWiVB28+wnKIHePTRRpQPbQ=="
-  "resolved" "https://registry.npmjs.org/unplugin/-/unplugin-0.2.21.tgz"
-  "version" "0.2.21"
-  dependencies:
-    "webpack-virtual-modules" "^0.4.3"
+    "@rollup/pluginutils" "^4.2.1"
+    "magic-string" "^0.26.1"
+    "unplugin" "^0.7.0"
 
 "unplugin@^0.7.0":
   "integrity" "sha512-OsiFrgybmqm5bGuaodvbLYhqUrvGuRHRMZDhddKEXTDbuQ1x+hR7M1WpQguXj03whVYjEYChhFo738cZH5RNig=="
