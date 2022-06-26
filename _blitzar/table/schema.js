@@ -26,4 +26,16 @@ export default [
     component: "InputNumber",
     // parseValue: (val) => val.toLocaleString(),
   },
+
+  // 这里用到了函数
+  {
+    mode: 'edit',
+    component: 'Button',
+    slot: '⛔️',
+    events: {
+      click: (pointerEvent, formContext) => {
+        formContext.deleteRow()
+      },
+    },
+  },
 ];

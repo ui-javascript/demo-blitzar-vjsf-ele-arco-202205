@@ -1,12 +1,22 @@
 <template>
-    <div class="demo">
-        <BlitzTable :schemaColumns="schema" :rows="rows"  :searchField="{
+  <div class="demo">
+    <Select id="mode" v-model="mode" name="mode" style="margin-bottom: 1rem;width: 250px;">
+      <Option value="edit">编辑模式</Option>
+      <Option value="readonly">只读模式</Option>
+      <Option value="disabled">禁用模式</Option>
+      <Option value="raw">文本模式</Option>
+    </Select>
+
+    <BlitzTable
+      :schemaColumns="schema"
+      v-model:rows="rows"
+      :searchField="{
         component: 'Input',
         placeholder: 'Search...',
         debounce: 300,
         clearable: true,
-      }" 
-      mode="edit"
+      }"
+      :mode="mode"
       paginationFieldPosition="center"
       :paginationField="{
         // label: 'Open page:',
@@ -14,17 +24,24 @@
         total: 50,
         showPageSize: true,
       }"
+    />
 
-      />
-    </div>
+<pre>
+{{ JSON.stringify(rows, null, 2) }}
+</pre>
+
+  </div>
 </template>
 
 <script setup>
+import { ref } from "vue"
 import { BlitzTable } from 'blitzar'
 import 'blitzar/dist/style.css'
 import schema from './schema';
 
-const rows = [
+const mode = ref('edit')
+
+const rows = ref([
   {
     balance: 93683,
     birthdate: '1946-07-22',
@@ -42,13 +59,11 @@ const rows = [
   { balance: 83325, birthdate: '1966-11-17', firstName: 'Xena', lastName: 'Emerson', company: 'Mollis Foundation' }, // prettier-ignore
   { balance: 50981, birthdate: '1995-07-26', firstName: 'Althea', lastName: 'Mcdaniel', company: 'Non Foundation' }, // prettier-ignore
   { balance: 97869, birthdate: '1945-10-01', firstName: 'Shad', lastName: 'Beard', company: 'Mollis Incorporated' }, // prettier-ignore
-]
+])
 </script>
 
 <style scoped lang="less">
 .demo {
-    padding: 10px;
-
-
+  padding: 10px;
 }
 </style>
