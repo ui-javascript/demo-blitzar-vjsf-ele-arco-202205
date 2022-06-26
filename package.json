@@ -12,6 +12,9 @@
   "dependencies": {
     "@arco-design/web-vue": "^2.32.0",
     "@form-create/arco-design": "^3.1.10",
+    "@formily/core": "^2.1.6",
+    "@formily/element-plus": "^1.0.0-beta.2",
+    "@formily/vue": "^2.1.6",
     "@lljj/vue-json-schema-form": "^1.13.0",
     "@lljj/vue3-form-element": "^1.13.0",
     "ant-design-vue": "^3.1.0-rc.2",
@@ -34,7 +37,11 @@
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "less": "^4.1.2",
-    "less-loader": "^10.2.0"
+    "less-loader": "^10.2.0",
+    "sass": "^1.32.11",
+    "sass-loader": "^8.0.2",
+    "typescript": "^4.7.4",
+    "unplugin-vue-components": "^0.19.9"
   },
   "eslintConfig": {
     "root": true,

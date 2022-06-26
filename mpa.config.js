@@ -15,7 +15,9 @@ module.exports = {
     
     // entry: './_formcreate-arco/*.js',
 
-    entry: './_vjsf-ele/*.js',
+    // entry: './_vjsf-ele/*.js',
+
+    entry: './_formily-ele/**/index.js',
 
     // entry: './_blitzar/*.js',
 

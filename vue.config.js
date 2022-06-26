@@ -2,7 +2,7 @@ const path = require("path")
 const { defineConfig } = require('@vue/cli-service')
 // const HtmlWebpackPlugin = require("html-webpack-plugin")
 
-const isEnvProd = (process.env.NODE_ENV === 'production')
+// const isEnvProd = (process.env.NODE_ENV === 'production')
 const isEnvDev = (process.env.NODE_ENV === 'development')
 
 function resolve(dir) {
@@ -50,7 +50,9 @@ module.exports = defineConfig({
   },
   runtimeCompiler: true,
   configureWebpack: {
-    // plugins: [],
+    plugins: [
+      require('unplugin-vue-components/webpack')({ /* options */ }),
+    ],
     resolve: {
       alias: {
         '@': resolve('src'),
