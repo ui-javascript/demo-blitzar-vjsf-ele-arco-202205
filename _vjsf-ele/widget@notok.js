@@ -6,7 +6,7 @@ import 'element-plus/dist/index.css'
 // import VueForm from '@lljj/vue3-form-element';
 import VueForm from '@lljj/vue-json-schema-form';
 
-import jsonSchema from './data/widget';
+import jsonSchema from './data/widget.data';
 
 // Vue.component('VueForm', VueForm);
 

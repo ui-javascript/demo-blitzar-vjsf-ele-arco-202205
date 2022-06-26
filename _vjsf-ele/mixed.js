@@ -3,7 +3,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import VueForm from '@lljj/vue3-form-element';
 
-import jsonSchema from './data/mixed'
+import jsonSchema from './data/mixed.data'
 
 const App = {
     template: `
