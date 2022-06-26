@@ -1,4 +1,4 @@
 export default [
-  { id: 'nameFirst', label: 'First Name', component: 'input' },
-  { id: 'nameLast', label: 'Last Name', component: 'input' },
+  { id: 'nameFirst', label: 'First Name', component: 'Input' },
+  { id: 'nameLast', label: 'Last Name', component: 'Input' },
 ]

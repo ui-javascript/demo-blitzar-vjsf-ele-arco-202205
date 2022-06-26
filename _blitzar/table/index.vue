@@ -1,6 +1,21 @@
 <template>
     <div class="demo">
-        <BlitzTable :schemaColumns="schema" :rows="rows" />
+        <BlitzTable :schemaColumns="schema" :rows="rows"  :searchField="{
+        component: 'Input',
+        placeholder: 'Search...',
+        debounce: 300,
+        clearable: true,
+      }" 
+      mode="edit"
+      paginationFieldPosition="center"
+      :paginationField="{
+        // label: 'Open page:',
+        component: 'Pagination',
+        total: 50,
+        showPageSize: true,
+      }"
+
+      />
     </div>
 </template>
 
