@@ -1,30 +1,22 @@
 <template>
-  <Form :form="form" :label-col="4" :wrapper-col="10">
+  <Form :form="form" label-align="left" :label-width="160">
     <SchemaField :schema="schema" />
-    <FormButtonGroup align-form-item>
-      <Submit @submit="onSubmit">提交</Submit>
-    </FormButtonGroup>
+    <Submit @submit="onSubmit">提交</Submit>
   </Form>
 </template>
 
 <script setup>
-// import { h } from 'vue'
 import { createForm } from '@formily/core'
 import { createSchemaField } from '@formily/vue'
-import {
-  Form,
-  FormItem,
-  Upload,
-  Submit,
-  FormButtonGroup,
-} from '@formily/element-plus'
-import schema from "./index.data.js"
+import { Form, FormItem, Transfer, Submit } from '@formily/element-plus'
+
+import schema from "./index.data"
 
 const form = createForm()
 const { SchemaField } = createSchemaField({
   components: {
     FormItem,
-    Upload,
+    Transfer,
   },
 })
 

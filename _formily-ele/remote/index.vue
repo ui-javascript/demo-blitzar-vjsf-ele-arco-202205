@@ -51,7 +51,7 @@ const loadData = async (field) => {
           },
         ])
       }
-    }, 1500)
+    }, 1000)
   })
 }
 
@@ -64,6 +64,6 @@ const { SchemaField } = createSchemaField({
 })
 
 const onSubmit = (value) => {
-  console.log(value)
+    alert(JSON.stringify(value, null, 2))
 }
 </script>

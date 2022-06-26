@@ -54,8 +54,10 @@ const form = createForm()
 const formTab = FormTab.createFormTab()
 
 const log = (values) => {
-  console.log(values)
+  alert(JSON.stringify(values, null, 2))
 }
+
+
 </script>
 
 <style lang="scss" scoped></style>

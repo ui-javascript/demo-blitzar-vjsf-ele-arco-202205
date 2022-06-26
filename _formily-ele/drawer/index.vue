@@ -42,7 +42,7 @@ const handleOpen = () => {
       },
     })
     .then((values) => {
-      console.log('values', values)
+        alert(JSON.stringify(values, null, 2))
     })
     .catch((e) => {
       console.log(e)

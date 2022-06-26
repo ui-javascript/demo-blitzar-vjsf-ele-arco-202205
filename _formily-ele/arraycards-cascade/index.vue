@@ -22,7 +22,7 @@ const { SchemaField } = createSchemaField({
 const form = createForm()
 
 const log = (values) => {
-  console.log(values)
+ alert(JSON.stringify(values, null, 2))
 }
 </script>
 

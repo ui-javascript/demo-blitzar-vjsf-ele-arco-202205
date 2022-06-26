@@ -66,7 +66,7 @@ const { SchemaField } = createSchemaField({
   },
 })
 
-const onSubmit = (value) => {
-  console.log(value)
+const onSubmit = (values) => {
+      alert(JSON.stringify(values, null, 2))
 }
 </script>

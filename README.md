@@ -1,3 +1,3 @@
 # README
 
-Vue多页面
+formily比较完善, 但实在太复杂了

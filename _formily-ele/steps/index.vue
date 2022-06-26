@@ -56,8 +56,10 @@ const { SchemaField } = createSchemaField({
 const form = createForm()
 const formStep = FormStep.createFormStep()
 
+const logging = (values) => alert(JSON.stringify(values, null, 2))
+
 const log = () => {
-  formStep.submit(console.log)
+  formStep.submit(logging)
 }
 </script>
 
