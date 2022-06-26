@@ -1,7 +1,7 @@
 export default [
   {
     label: '#️',
-    component: 'Input',
+    component: 'InputNumber',
     class: "arco-table-td",
     parseValue: (_, formContext) => {
       return formContext.rowIndex + 1
@@ -46,16 +46,16 @@ export default [
     component: 'Button',
     // class: "arco-table-td",
     slot: '⛔️',
-    dynamicProps: ['showCondition', 'disabled'],
+    // dynamicProps: ['showCondition', 'disabled'],
     // component props:
-    showCondition: (val, { mode }) => {
-      console.log('mode', mode)    
-      return  mode == 'edit'
-    },
-    disabled: (val, { mode }) => {
-      console.log('mode', mode) 
-      return mode != 'edit'
-    },
+    // showCondition: (val, { mode }) => {
+    //   console.log('mode', mode)    
+    //   return  mode == 'edit'
+    // },
+    // disabled: (val, { mode }) => {
+    //   console.log('mode', mode) 
+    //   return mode != 'edit'
+    // },
     events: {
       click: (pointerEvent, formContext) => {
         formContext.deleteRow()
