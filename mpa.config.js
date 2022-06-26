@@ -19,6 +19,6 @@ module.exports = {
 
     // entry: './_formily-ele/**/index.js',
 
-    entry: './_blitzar/**/index.js',
+    entry: './_blitzar-arco/**/index.js',
 
 }

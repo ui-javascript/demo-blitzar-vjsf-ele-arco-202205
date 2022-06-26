@@ -34,7 +34,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="TableApp">
 import { ref } from "vue"
 import { BlitzTable } from 'blitzar'
 import 'blitzar/dist/style.css'

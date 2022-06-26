@@ -4,7 +4,7 @@
     </div>
 </template>
 
-<script setup>
+<script setup name="ListForm">
 import { ref } from "vue"
 import { BlitzListForm } from 'blitzar'
 import 'blitzar/dist/style.css'

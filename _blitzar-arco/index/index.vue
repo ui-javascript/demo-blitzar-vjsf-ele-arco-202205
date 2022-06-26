@@ -24,7 +24,7 @@
     </div>
 </template>
 
-<script setup>
+<script setup name="IndexApp">
 import { ref } from "vue"
 import { BlitzForm } from 'blitzar'
 import 'blitzar/dist/style.css'
