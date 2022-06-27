@@ -13,9 +13,9 @@
       <Button v-show="isEdit" :disabled="editRowIds.length === 0" @click="submitEdit">提交编辑信息</Button>
 
 
-    <Alert type="info" :show-icon="false" :key="editRowIds.map(i => i).join('_')" style="margin-top: 10px;margin-bottom: 10px;" closable
-      v-if="isEdit && editRowIds.length > 0">会定期自动保存编辑信息(画饼中~~)</Alert>
-    <Alert type="success" style="margin-top: 10px;margin-bottom: 10px;" closable
+    <Alert type="info" :show-icon="false" :key="editRowIds.map(i => i).join('_')"
+      v-if="isEdit">定期保存数据(画饼中~~) <IconRefresh :stroke-width="2" :style="{fontSize:'16px'}" spin/></Alert>
+    <Alert type="success" closable
       v-if="isEdit && editRowIds.length === 0">已自动保存</Alert>
 
     </Space>
@@ -54,6 +54,8 @@
 <script setup name="TableApp">
 import { ref, computed, onMounted } from "vue"
 import { Modal, Message } from '@arco-design/web-vue';
+import { IconRefresh } from '@arco-design/web-vue/es/icon';
+
 import { BlitzTable, BlitzForm } from 'blitzar'
 import 'blitzar/dist/style.css'
 import schemaRaw, { operaterSchemaRaw, selectionSchemaRaw, idxSchemaRaw } from './schema'
@@ -240,6 +242,12 @@ onMounted(() => {
     text-align: left;
   }
 
+
+.arco-alert {
+
+    padding: 4px 15px;
+ 
+}
 
 }
 </style>
