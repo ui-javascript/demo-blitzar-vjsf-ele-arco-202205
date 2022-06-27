@@ -5,17 +5,32 @@
         <Option value="edit">编辑模式</Option>
         <!-- <Option value="readonly">只读模式</Option> -->
         <!-- <Option value="disabled">禁用模式</Option> -->
-        <Option value="raw">文本模式</Option>
+        <Option value="raw">普通模式</Option>
       </Select>
 
-      <Button v-show="isEdit" @click="submit">全部提交</Button>
 
-      <Button v-show="isEdit" @click="submitSelected">勾选项</Button>
+      <Button @click="submit">全部提交</Button>
+
+      <Button v-show="isEdit" @click="submitSelected">显示勾选项</Button>
+
     </Space>
 
-    <BlitzTable v-model:selectedRows="selectedRows" :key="rows.map(i => i.id).join('_')" :sortable="false" labelPosition="left" :schemaColumns="schema"
-      :rows="rowsRaw" :mode="mode" :paginationField="paginationField" :searchField="searchField"
-      @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
+    <BlitzTable v-model:selectedRows="selectedRows" 
+      :key="rows.map(i => i.id).join('_')" 
+      :sortable="false"
+      labelPosition="left" :schemaColumns="tableSchema" 
+      :rows="rowsRaw" :mode="mode" :paginationField="paginationField"
+      :searchField="searchField" @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
+
+    <Drawer :visible="visible" :width="500" @ok="handleOk" @cancel="handleCancel" unmountOnClose>
+      <template #title>
+        编辑 {{ item.firstName }} {{ item.lastName }}
+      </template>
+
+      <BlitzForm labelPosition="left" labelWidth="100px" v-model="item" mode="edit" :schema="schemaRaw"
+        :columnCount="1" />
+
+    </Drawer>
 
   </div>
 </template>
@@ -23,15 +38,25 @@
 <script setup name="TableApp">
 import { ref, computed, onMounted } from "vue"
 import { Modal } from '@arco-design/web-vue';
-import { BlitzTable } from 'blitzar'
+import { BlitzTable, BlitzForm } from 'blitzar'
 import 'blitzar/dist/style.css'
-import schemaRaw from './schema'
+import schemaRaw, { operaterSchemaRaw, selectionSchemaRaw, idxSchemaRaw } from './schema'
 import rowsRaw from "./data"
 
-const mode = ref('edit')
+const mode = ref('raw')
 const rows = ref(rowsRaw)
-const schema = ref(schemaRaw)
+
+const tableSchema = computed(() => {
+  operaterSchemaRaw[0].events.click = editItem
+
+  return mode.value === "edit" 
+    ? selectionSchemaRaw.concat(idxSchemaRaw).concat(schemaRaw).concat(operaterSchemaRaw)
+    : idxSchemaRaw.concat(schemaRaw) 
+})
+
 const selectedRows = ref([])
+const item = ref([])
+const visible = ref(false)
 const isEdit = computed(() => mode.value === 'edit')
 
 const paginationField = {
@@ -78,15 +103,11 @@ const submit = () => {
 }
 
 
-// const editItem = (_, formContext) => {
-//   console.log(_, formContext)
-
-//   // Modal.info({
-//   //   title: 'Info Title',
-//   //   content: JSON.stringify(rows.value[rowIndex], null, 2)
-//   // });
-
-// }
+const editItem = (_, formContext) => {
+  // console.log(formContext.rowData)
+  visible.value = true
+  item.value = Object.assign({}, formContext.rowData)
+}
 
 const submitSelected = () => {
   console.log(selectedRows)
@@ -98,9 +119,16 @@ const submitSelected = () => {
 
 }
 
+const handleOk = () => {
+  visible.value = false
+}
+
+const handleCancel = () => {
+  visible.value = false
+}
+
 onMounted(() => {
-  // 删除
-  // schema.value[schema.value.length - 1].slot[1].events.click = rowDeleted
+  
 })
 
 </script>
@@ -126,14 +154,25 @@ onMounted(() => {
   :deep(th) {
     box-sizing: border-box;
     padding: 4px;
-    
+    font-size: 14px;
+
     // padding: 9px 16px;
     line-height: 1.5715;
     word-break: break-all;
     background-color: var(--color-neutral-2);
+
     border-bottom: 1px solid var(--color-neutral-3);
     text-align: left;
   }
 
+
 }
 </style>
+
+<!-- <style lang="less">
+.blitz-form__form {
+    :deep(.blitz-field__label, .blitz-field__sub-label) {
+        width: 100px;
+    }
+}
+</style> -->

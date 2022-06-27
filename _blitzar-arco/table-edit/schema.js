@@ -1,7 +1,8 @@
 import { ROW_SELECTION_ID } from 'blitzar'
 import { Modal } from '@arco-design/web-vue';
 
-const schema = [
+
+export const selectionSchemaRaw = [
     {
         id: ROW_SELECTION_ID,
         label: '勾选栏',
@@ -10,6 +11,10 @@ const schema = [
         dynamicProps: ['showCondition'],
         showCondition: (_, { mode }) => mode === 'edit',
     },
+]
+
+
+export const idxSchemaRaw = [
     {
         label: '#️',
         component: 'InputNumber',
@@ -22,43 +27,11 @@ const schema = [
             return formContext.rowIndex + 1
         },
     },
-    {
-        id: "firstName",
-        label: "First Name",
-        component: "Input",
-        // style: 'width: 70px',
-        // class: "arco-table-td arco-table-cell",
-    },
-    {
-        id: "lastName",
-        label: "Last Name",
-        component: "Input",
-        // style: 'width: 70px',
-        // class: "arco-table-td arco-table-cell",
-    },
-    {
-        id: "company",
-        label: "公司",
-        // component: "Textarea",
-        component: "Input",
-        // style: 'width: 70px',
-        // class: "arco-table-td arco-table-cell",
-    },
-    {
-        id: "birthdate",
-        label: "生日",
-        component: "DatePicker",
-        // style: 'width: 70px',
-        // class: "arco-table-td arco-table-cell",
-    },
-    {
-        id: "balance",
-        label: "收入",
-        component: "InputNumber",
-        // style: 'width: 70px',
-        // class: "arco-table-td arco-table-cell",
-        // parseValue: (val) => val.toLocaleString(),
-    },
+]
+
+
+
+export const operaterSchemaRaw = [
 
     // @todo 这里用到了函数, 是变化的部分
     {
@@ -69,8 +42,9 @@ const schema = [
         // style: 'width: 70px',
         // class: "arco-table-td arco-table-cell",
         sortable: false,
-        dynamicProps: ['showCondition'],
-        showCondition: (_, { mode }) => mode === 'edit',
+        mode: 'edit',
+        // dynamicProps: ['showCondition'],
+        // showCondition: (_, { mode }) => mode === 'edit',
         events: {
             click: (_, formContext) => {
                 console.log(formContext)
@@ -92,8 +66,9 @@ const schema = [
         // style: 'width: 70px',
         // class: "arco-table-td arco-table-cell",
         sortable: false,
-        dynamicProps: ['showCondition'],
-        showCondition: (_, { mode }) => mode === 'edit',
+        mode: 'edit',
+        // dynamicProps: ['showCondition'],
+        // showCondition: (_, { mode }) => mode === 'edit',
         events: {
             click: (_, formContext) => {
                 // console.log(formContext)
@@ -137,6 +112,50 @@ const schema = [
 
     //     ]
     // },
+]
+
+
+
+const schemaRaw = [
+
+    {
+        id: "firstName",
+        label: "First Name",
+        component: "Input",
+        // style: 'width: 70px',
+        // class: "arco-table-td arco-table-cell",
+    },
+    {
+        id: "lastName",
+        label: "Last Name",
+        component: "Input",
+        // style: 'width: 70px',
+        // class: "arco-table-td arco-table-cell",
+    },
+    {
+        id: "company",
+        label: "公司",
+        // component: "Textarea",
+        component: "Input",
+        // style: 'width: 70px',
+        // class: "arco-table-td arco-table-cell",
+    },
+    {
+        id: "birthdate",
+        label: "生日",
+        component: "DatePicker",
+        // style: 'width: 70px',
+        // class: "arco-table-td arco-table-cell",
+    },
+    {
+        id: "balance",
+        label: "收入",
+        component: "InputNumber",
+        // style: 'width: 70px',
+        // class: "arco-table-td arco-table-cell",
+        // parseValue: (val) => val.toLocaleString(),
+    },
+
 ];
 
-export default schema;  
+export default schemaRaw;  
