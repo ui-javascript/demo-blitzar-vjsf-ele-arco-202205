@@ -3,33 +3,28 @@
     <Space style="margin-bottom: 10px;">
       <Select id="mode" v-model="mode" name="mode" style="width: 250px;">
         <Option value="raw">常规模式</Option>
-        <Option value="edit">行内编辑模式</Option>
-        <!-- <Option value="readonly">只读模式</Option> -->
-        <!-- <Option value="disabled">禁用模式</Option> -->
+        <Option value="edit">行内编辑</Option>
       </Select>
-
 
       <Button @click="submit">全部提交</Button>
 
-      <Button v-show="isEdit" @click="submitEdit">提交编辑过的人员信息</Button>
+      <Button :disabled="selectedRows.length === 0" status="danger" @click="delSelected">删除勾选项</Button>
 
-      <Button v-show="isEdit" :disabled="selectedRows.length===0" status="danger" @click="delSelected">删除勾选项</Button>
+      <Button v-show="isEdit" :disabled="editRowIds.length === 0" @click="submitEdit">提交编辑信息</Button>
+
+
+    <Alert type="info" :show-icon="false" :key="editRowIds.map(i => i).join('_')" style="margin-top: 10px;margin-bottom: 10px;" closable
+      v-if="isEdit && editRowIds.length > 0">会定期自动保存编辑信息(画饼中~~)</Alert>
+    <Alert type="success" style="margin-top: 10px;margin-bottom: 10px;" closable
+      v-if="isEdit && editRowIds.length === 0">已自动保存</Alert>
 
     </Space>
 
-    <BlitzTable 
-      :rows="rowsRaw" 
-      :key="selectedRows.map(i => i.id).join('_') + '_'+ rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
-      
-      v-model:selectedRows="selectedRows" 
-      :sortable="false" 
-      labelPosition="left" 
-      :schemaColumns="tableSchema"
-      :mode="mode" 
-      :rowsPerPage="pagination.pageSize" 
-      :paginationField="paginationField"
-      :searchField="searchField" 
-      
+
+    <BlitzTable :rows="rowsRaw"
+      :key="selectedRows.map(i => i.id).join('_') + '_' + rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
+      v-model:selectedRows="selectedRows" :sortable="false" labelPosition="left" :schemaColumns="tableSchema"
+      :mode="mode" :rowsPerPage="pagination.pageSize" :paginationField="paginationField" :searchField="searchField"
       @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
 
     <Drawer :visible="visible" :width="500" @ok="handleOk" @cancel="handleCancel" unmountOnClose>
@@ -41,6 +36,17 @@
         :schema="schemaRaw" :columnCount="1" />
 
     </Drawer>
+
+    <Modal v-model:visible="modalVisible" @ok="handleModalOk" @cancel="modalVisible = false">
+      <template #title>
+        提交编辑过的人员信息
+      </template>
+
+      <pre>
+{{ JSON.stringify(rows.filter(i => editRowIds.includes(i.id)).map(i => i.firstName + " " + i.lastName), null, 2) }}
+</pre>
+
+    </Modal>
 
   </div>
 </template>
@@ -63,14 +69,15 @@ const tableSchema = computed(() => {
   operaterSchemaRaw[0].events.click = editItem
 
   return mode.value === "edit"
-    ? selectionSchemaRaw.concat(schemaRaw)
-    : idxSchemaRaw.concat(schemaRaw).concat(operaterSchemaRaw)
+    ? selectionSchemaRaw.concat(idxSchemaRaw).concat(schemaRaw)
+    : selectionSchemaRaw.concat(idxSchemaRaw).concat(schemaRaw).concat(operaterSchemaRaw)
 })
 
 const selectedRows = ref([])
 const editRowIds = ref([])
 const item = ref([])
 const visible = ref(false)
+const modalVisible = ref(false)
 const isEdit = computed(() => mode.value === 'edit')
 
 const pagination = ref({
@@ -85,14 +92,25 @@ const paginationField = computed(() => {
     showPageSize: true,
     pageSize: pagination.value.pageSize,
     current: pagination.value.current,
+    // @tofix 这一句会导致失去聚焦 
+    // disabled: editRowIds.value.length > 0,
     events: {
       change: (current) => {
-        console.log("当前页码: " + current)
+        if (editRowIds.value.length > 0) {
+          Message.warning(`页面跳转前需要先保存编辑信息`)
+          return false
+        }
+        // console.log("当前页码: " + current)
         pagination.value.current = current
         Message.info(`页面跳转${current}`)
       },
       pageSizeChange: (pageSize) => {
-        console.log("每页数量: " + pageSize)
+        if (editRowIds.value.length > 0) {
+          Message.warning(`页面跳转前需要先保存编辑信息`)
+          return false
+        }
+
+        // console.log("每页数量: " + pageSize)
         pagination.value.pageSize = pageSize
         pagination.value.current = 1
       }
@@ -110,7 +128,9 @@ const searchField = false
 
 
 const onUpdateCell = ({ rowId, colId, value, origin }) => {
-  editRowIds.value.push(rowId)
+  if (!editRowIds.value.includes(rowId)) {
+    editRowIds.value.push(rowId)
+  }
   console.log('@updateCell', { rowId, colId, value, origin })
   const row = rows.value.find((r) => r.id === rowId)
   if (!row) return
@@ -129,10 +149,11 @@ const rowDeleted = (rowIndex) => {
   rows.value.splice(rowIndex, 1)
 }
 
-
 const editItem = (_, formContext) => {
   // console.log(formContext.rowData)
   visible.value = true
+
+  // 数据是隔离后的副本
   item.value = formContext.rowData
   // item.value = Object.assign({}, formContext.rowData)
 }
@@ -149,12 +170,7 @@ const submit = () => {
 
 
 const submitEdit = () => {
-
-  Modal.info({
-    title: '批量提交修改',
-    content: JSON.stringify(rows.value.filter(i => editRowIds.value.includes(i.id)).map(i => i.firstName + " " + i.lastName), null, 2)
-  });
-
+  modalVisible.value = true
 }
 
 
@@ -178,6 +194,12 @@ const handleOk = () => {
 
 const handleCancel = () => {
   visible.value = false
+}
+
+const handleModalOk = () => {
+  editRowIds.value = []
+  console.log(editRowIds.value.length)
+  modalVisible.value = false
 }
 
 onMounted(() => {

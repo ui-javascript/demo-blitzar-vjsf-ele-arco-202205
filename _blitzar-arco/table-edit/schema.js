@@ -16,6 +16,7 @@ export const selectionSchemaRaw = [
 
 export const idxSchemaRaw = [
     {
+        mode: 'raw',
         label: '#️',
         component: 'InputNumber',
         // @todo 序号无法重新点击排序
@@ -129,14 +130,14 @@ const schemaRaw = [
     {
         id: "lastName",
         label: "Last Name",
-        component: "ElInput",
+        component: "Input",
         required: true,
         // style: 'width: 70px',
         // class: "arco-table-td arco-table-cell",
     },
     {
         id: "company",
-        label: "公司信息",
+        label: "公司信息(ElementUI组件)",
         // component: "TextArea",
         component: "ElInput",
         type: "textarea",
