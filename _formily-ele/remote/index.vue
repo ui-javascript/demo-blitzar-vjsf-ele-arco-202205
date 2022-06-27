@@ -11,7 +11,7 @@ import { createSchemaField } from '@formily/vue'
 import { action } from '@formily/reactive'
 import { Form, FormItem, Select, Submit} from '@formily/element-plus'
 
-import schema from './index.data'
+import schema from './index.schema'
 
 const useAsyncDataSource = (service) => (field) => {
   field.loading = true

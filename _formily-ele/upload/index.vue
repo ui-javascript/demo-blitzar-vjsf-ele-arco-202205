@@ -18,7 +18,7 @@ import {
   Submit,
   FormButtonGroup,
 } from '@formily/element-plus'
-import schema from "./index.data.js"
+import schema from "./index.schema"
 
 const form = createForm()
 const { SchemaField } = createSchemaField({

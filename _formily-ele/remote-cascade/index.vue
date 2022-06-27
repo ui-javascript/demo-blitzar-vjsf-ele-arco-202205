@@ -13,7 +13,7 @@ import { createForm } from '@formily/core'
 import { createSchemaField } from '@formily/vue'
 import { Form, FormItem, Cascader, Submit } from '@formily/element-plus'
 import { action } from '@formily/reactive'
-import schema from "./index.data"
+import schema from "./index.schema"
 
 const transformAddress = (data = {}) => {
   return Object.entries(data).reduce(

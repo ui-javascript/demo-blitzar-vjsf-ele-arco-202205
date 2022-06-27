@@ -16,7 +16,7 @@ import {
   Editable,
   Switch,
 } from '@formily/element-plus'
-import schema from "./index.data"
+import schema from "./index.schema"
 
 const { SchemaField } = createSchemaField({
   components: {

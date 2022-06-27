@@ -10,7 +10,7 @@ import { createForm } from '@formily/core'
 import { createSchemaField } from '@formily/vue'
 import { Form, FormItem, Transfer, Submit } from '@formily/element-plus'
 
-import schema from "./index.data"
+import schema from "./index.schema"
 
 const form = createForm()
 const { SchemaField } = createSchemaField({

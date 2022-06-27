@@ -9,7 +9,7 @@
 import { createForm } from "@formily/core";
 import { FormProvider, createSchemaField } from "@formily/vue";
 import { FormItem, Submit, Input, ArrayCards } from "@formily/element-plus";
-import schema from "./index.data";
+import schema from "./index.schema";
 
 const { SchemaField } = createSchemaField({
   components: {

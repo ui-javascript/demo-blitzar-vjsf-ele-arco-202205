@@ -6,7 +6,7 @@
 import { FormDialog, FormLayout, FormItem, Input } from "@formily/element-plus";
 import { ElButton } from "element-plus";
 import { createSchemaField } from "@formily/vue";
-import schema from "./index.data";
+import schema from "./index.schema";
 
 const { SchemaField } = createSchemaField({
   components: {
