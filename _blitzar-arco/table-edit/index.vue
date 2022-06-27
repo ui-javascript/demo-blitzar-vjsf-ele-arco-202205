@@ -18,14 +18,19 @@
     </Space>
 
     <BlitzTable 
+      :rows="rowsRaw" 
       :key="selectedRows.map(i => i.id).join('_') + '_'+ rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
+      
       v-model:selectedRows="selectedRows" 
       :sortable="false" 
       labelPosition="left" 
       :schemaColumns="tableSchema"
-      :rows="rows" 
-      :mode="mode" :rowsPerPage="pagination.pageSize" :paginationField="paginationField"
-      :searchField="searchField" @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
+      :mode="mode" 
+      :rowsPerPage="pagination.pageSize" 
+      :paginationField="paginationField"
+      :searchField="searchField" 
+      
+      @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
 
     <Drawer :visible="visible" :width="500" @ok="handleOk" @cancel="handleCancel" unmountOnClose>
       <template #title>
@@ -48,8 +53,10 @@ import 'blitzar/dist/style.css'
 import schemaRaw, { operaterSchemaRaw, selectionSchemaRaw, idxSchemaRaw } from './schema'
 import rowsData from "./data"
 
-let rowsRaw = rowsData
 const mode = ref('raw')
+
+// 防止失去焦点, 得准备两份数据
+let rowsRaw = rowsData
 const rows = ref(rowsRaw)
 
 const tableSchema = computed(() => {
@@ -152,17 +159,16 @@ const submitEdit = () => {
 
 
 const delSelected = () => {
-  console.log(selectedRows.value)
-  const selectedRowIds = selectedRows.value.map(i => i.id)
+  // console.log(selectedRows.value)
+  // const selectedRowIds = selectedRows.value.map(i => i.id)
+  // rowsRaw = rowsRaw.value.filter(i => !selectedRowIds.includes(i.id))
+  // rows.value = rows.value.filter(i => !selectedRowIds.includes(i.id))
+  // selectedRows.value = []
 
-  // rowsRaw = rowsRaw.filter(i => !selectedRowIds.includes(i.id))
-  rows.value = rows.value.filter(i => !selectedRowIds.includes(i.id))
-  selectedRows.value = []
-
-  // Modal.error({
-  //   title: '确认删除吗',
-  //   content: JSON.stringify(selectedRows.value.map(i => i.firstName + " " + i.lastName), null, 2)
-  // });
+  Modal.error({
+    title: '确认删除吗',
+    content: JSON.stringify(selectedRows.value.map(i => i.firstName + " " + i.lastName), null, 2)
+  });
 
 }
 
