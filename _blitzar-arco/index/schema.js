@@ -1,181 +1,168 @@
-export default [
-  {
-    id: "Input",
-    component: "Input",
-    label: "Input",
-    // subLabel: 'Input Something',
-    placeholder: "Input Something",
-    allowClear: true,
-    required: true,
-    defaultValue: "Something",
-  },
+import { ROW_SELECTION_ID } from 'blitzar'
+import { Modal } from '@arco-design/web-vue';
 
 
-  {
-    id: "InputNumber",
-    component: "InputNumber",
-    label: "InputNumber",
-    // @tofix button模式未生效
-    // mode: "button",
-  },
-
-  {
-    id: "Textarea",
-    component: "Textarea",
-    label: "Textarea",
-  },
-
-  {
-    id: "InputTag",
-    component: "InputTag",
-    label: "InputTag",
-    allowClear: true,
-    defaultValue: ["test"],
-  },
-
-  {
-    id: "Switch",
-    component: "Switch",
-    label: "Switch",
-    style: "width: 80px;",
-  },
-
-  {
-    id: "Radio",
-    label: "Radio",
-    // subLabel: 'Checkbox',
-    component: "RadioGroup",
-    slot: [
-      { component: "Radio", value: "1", slot: "1", disabled: true },
-      { component: "Radio", value: "2", slot: "2" },
-      { component: "Radio", value: "3", slot: "3" },
-    ],
-  },
-
-  {
-    id: "Checkbox",
-    label: "Checkbox",
-    // subLabel: 'Checkbox',
-    component: "CheckboxGroup",
-    slot: [
-      { component: "Checkbox", value: "1", slot: "1", disabled: true },
-      { component: "Checkbox", value: "2", slot: "2" },
-      { component: "Checkbox", value: "3", slot: "3" },
-    ],
-  },
-
-  {
-    id: "Select",
-    label: "Select",
-    // subLabel: 'Select',
-    component: "Select",
-    slot: [
-      { component: "Option", value: "", slot: "Select one", disabled: true },
-      { component: "Option", value: "mutation", slot: "Mutation" },
-      { component: "Option", value: "self", slot: "Self taught" },
-      { component: "Option", value: "item", slot: "Magic item" },
-      { component: "Option", value: "gear", slot: "Gear" },
-    ],
-  },
+export const selectionSchemaRaw = [
+    {
+        id: ROW_SELECTION_ID,
+        label: '勾选栏',
+        component: 'Checkbox',
+        style: 'width: 70px',
+        dynamicProps: ['showCondition'],
+        showCondition: (_, { mode }) => mode === 'edit',
+    },
+]
 
 
-  {
-    id: "Rate",
-    component: "Rate",
-    label: "Rate",
-  },
-  
-  {
-    id: "Slider",
-    component: "Slider",
-    label: "Slider",
-    step: 5,
-    showTicks: true,
-    range: true,
-  },
+export const idxSchemaRaw = [
+    {
+        mode: 'raw',
+        label: '#️',
+        component: 'InputNumber',
+        // @todo 序号无法重新点击排序
+        // sortable: true,
+        disabled: true,
+        style: 'width: 70px',
+        // class: "arco-table-td arco-table-cell",
+        parseValue: (_, formContext) => {
+            return formContext.rowIndex + 1
+        },
+    },
+]
 
 
 
+export const operaterSchemaRaw = [
 
-  {
-    id: "Cascader",
-    component: "Cascader",
-    label: "Cascader",
-    options: [
-      {
-        value: "beijing",
-        label: "Beijing",
-        children: [
-          {
-            value: "chaoyang",
-            label: "ChaoYang",
-            children: [
-              {
-                value: "datunli",
-                label: "Datunli",
-              },
-            ],
-          },
-          {
-            value: "haidian",
-            label: "Haidian",
-          },
-          {
-            value: "dongcheng",
-            label: "Dongcheng",
-          },
-          {
-            value: "xicheng",
-            label: "Xicheng",
-            children: [
-              {
-                value: "jinrongjie",
-                label: "Jinrongjie",
-              },
-              {
-                value: "tianqiao",
-                label: "Tianqiao",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        value: "shanghai",
-        label: "Shanghai",
-        children: [
-          {
-            value: "huangpu",
-            label: "Huangpu",
-          },
-        ],
-      },
-    ],
-  },
+    // @todo 这里用到了函数, 是变化的部分
+    {
+        component: 'Button',
+        type: "text",
+        label: "操作栏",
+        slot: '编辑',
+        // style: 'width: 70px',
+        // class: "arco-table-td arco-table-cell",
+        sortable: false,
+        mode: 'edit',
+        // dynamicProps: ['showCondition'],
+        // showCondition: (_, { mode }) => mode === 'edit',
+        events: {
+            click: (_, formContext) => {
+                console.log(formContext)
+                // console.log(formContext.rowData)
+                Modal.info({
+                    title: 'Info Title',
+                    content: JSON.stringify(formContext.rowData, null, 2)
+                  });
+                
+            },
+        },
+    },
+    // {
+    //     component: 'Button',
+    //     type: "text",
+    //     // label: "操作栏",
+    //     slot: '删除',
+    //     status: "danger",
+    //     // style: 'width: 70px',
+    //     // class: "arco-table-td arco-table-cell",
+    //     sortable: false,
+    //     mode: 'edit',
+    //     // dynamicProps: ['showCondition'],
+    //     // showCondition: (_, { mode }) => mode === 'edit',
+    //     events: {
+    //         click: (_, formContext) => {
+    //             // console.log(formContext)
+    //             formContext.deleteRow()
+    //         },
+    //     },
+    // },
 
-  {
-    id: "DatePicker",
-    component: "DatePicker",
-    label: "DatePicker",
-  },
+    // {
+    //     component: 'div',
+    //     label: "多列操作栏",
+    //     // style: 'width: 70px',
+    //     // class: "arco-table-td arco-table-cell",
+    //     dynamicProps: ['showCondition'],
+    //     showCondition: (_, { mode }) => mode === 'edit',
+    //     sortable: false,
+    //     slot: [
+    //         {
+    //             component: 'Button',
+    //             type: "text",
+    //             slot: '编辑',
+    //             events: {
+    //                 click: (_, formContext) => {
+    //                     console.log(formContext)
+    //                     // formContext.deleteRow()
+    //                 },
+    //             },
+    //         },
+    //         {
+    //             component: 'Button',
+    //             type: "text",
+    //             slot: '删除',
+    //             status: "danger",
+    //             events: {
+    //                 click: (_, formContext) => {
+    //                     console.log(formContext)
+    //                     // formContext.deleteRow()
+    //                 },
+    //             },
+    //         }
 
-  {
-    id: "TimePicker",
-    component: "TimePicker",
-    label: "TimePicker",
-  },
+    //     ]
+    // },
+]
 
-  
-  {
-    id: "Upload",
-    component: "Upload",
-    label: "Upload",
-  },
 
-  {
-    id: "Avatar",
-    component: "Avatar",
-    label: "Avatar",
-    slot: "Luo0412",
-  },
+
+const schemaRaw = [
+
+    {
+        id: "firstName",
+        label: "First Name",
+        component: "Input",
+        required: true,
+        // style: 'width: 70px',
+        // class: "arco-table-td arco-table-cell",
+    },
+    {
+        id: "lastName",
+        label: "Last Name",
+        component: "Input",
+        required: true,
+        // style: 'width: 70px',
+        // class: "arco-table-td arco-table-cell",
+    },
+    {
+        id: "company",
+        label: "公司信息(ElementUI组件)",
+        // component: "TextArea",
+        component: "ElInput",
+        type: "textarea",
+        rows: 1,
+        autosize: true,
+        required: true,
+        // style: 'width: 70px',
+        // class: "arco-table-td arco-table-cell",
+    },
+    {
+        id: "birthdate",
+        label: "生日",
+        component: "DatePicker",
+        // style: 'width: 70px',
+        // class: "arco-table-td arco-table-cell",
+    },
+    {
+        id: "balance",
+        label: "收入",
+        component: "InputNumber",
+        // style: 'width: 70px',
+        // class: "arco-table-td arco-table-cell",
+        // parseValue: (val) => val.toLocaleString(),
+    },
+
 ];
+
+export default schemaRaw;  
