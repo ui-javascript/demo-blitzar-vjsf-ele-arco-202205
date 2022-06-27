@@ -16,24 +16,21 @@
     </Space>
 
     <BlitzTable 
+    
+    :key="rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
+      :selectedRows="selectedRows" :sortable="false" labelPosition="left" :schemaColumns="tableSchema"
+      :rows="rowsRaw" :mode="mode" 
       :rowsPerPage="pagination.pageSize"
-      :key="rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current" 
-      v-model:selectedRows="selectedRows" 
-      :sortable="false"
-      labelPosition="left" 
-      :schemaColumns="tableSchema" 
-      :rows="rowsRaw" 
-      :mode="mode" 
-      v-model:paginationField="paginationField"
-      :searchField="searchField" @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
+      :paginationField="paginationField" :searchField="searchField"
+      @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
 
     <Drawer :visible="visible" :width="500" @ok="handleOk" @cancel="handleCancel" unmountOnClose>
       <template #title>
         编辑 {{ item.firstName }} {{ item.lastName }}
       </template>
 
-      <BlitzForm showErrorsOn="always" labelPosition="left" labelWidth="100px" v-model="item" mode="edit" :schema="schemaRaw"
-        :columnCount="1" />
+      <BlitzForm showErrorsOn="always" labelPosition="left" labelWidth="100px" v-model="item" mode="edit"
+        :schema="schemaRaw" :columnCount="1" />
 
     </Drawer>
 
@@ -69,24 +66,27 @@ const pagination = ref({
   current: 1,
 })
 
-const paginationField = ref({
-  component: 'Pagination',
-  total: 50,
-  showPageSize: true,
-  pageSize: pagination.value.pageSize,
-  current: pagination.value.current,
-  value: pagination.value.current,
-  events: {
-    change: (current) => {
-      console.log("当前页码: " + current)
-      pagination.value.current = current
-    },
-    pageSizeChange: (pageSize) => {
-      console.log("每页数量: " + pageSize)
-      pagination.value.pageSize = pageSize
+const paginationField = computed(() => {
+  return {
+    component: 'Pagination',
+    total: 50,
+    showPageSize: true,
+    pageSize: pagination.value.pageSize,
+    current: pagination.value.current,
+    // value: pagination.value.current,
+    events: {
+      change: (current) => {
+        console.log("当前页码: " + current)
+        pagination.value.current = current
+      },
+      pageSizeChange: (pageSize) => {
+        console.log("每页数量: " + pageSize)
+        pagination.value.pageSize = pageSize
+      }
     }
   }
 })
+
 
 // const rowsPerPageField = {
 //   component: 'Select',
