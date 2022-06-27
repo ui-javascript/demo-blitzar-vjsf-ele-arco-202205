@@ -16,8 +16,7 @@
     </Space>
 
     <BlitzTable 
-    
-    :key="rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
+      :key="rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
       :selectedRows="selectedRows" :sortable="false" labelPosition="left" :schemaColumns="tableSchema"
       :rows="rowsRaw" :mode="mode" 
       :rowsPerPage="pagination.pageSize"
@@ -39,7 +38,7 @@
 
 <script setup name="TableApp">
 import { ref, computed, onMounted } from "vue"
-import { Modal } from '@arco-design/web-vue';
+import { Modal, Message } from '@arco-design/web-vue';
 import { BlitzTable, BlitzForm } from 'blitzar'
 import 'blitzar/dist/style.css'
 import schemaRaw, { operaterSchemaRaw, selectionSchemaRaw, idxSchemaRaw } from './schema'
@@ -73,15 +72,16 @@ const paginationField = computed(() => {
     showPageSize: true,
     pageSize: pagination.value.pageSize,
     current: pagination.value.current,
-    // value: pagination.value.current,
     events: {
       change: (current) => {
         console.log("当前页码: " + current)
         pagination.value.current = current
+        Message.info(`页面跳转${current}`)
       },
       pageSizeChange: (pageSize) => {
         console.log("每页数量: " + pageSize)
         pagination.value.pageSize = pageSize
+        pagination.value.current = 1
       }
     }
   }
