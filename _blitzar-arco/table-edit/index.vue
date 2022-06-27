@@ -3,7 +3,7 @@
     <Space style="margin-bottom: 10px;">
       <Select id="mode" v-model="mode" name="mode" style="width: 250px;">
         <Option value="raw">常规模式</Option>
-        <Option value="edit">编辑模式</Option>
+        <Option value="edit">行内编辑模式</Option>
         <!-- <Option value="readonly">只读模式</Option> -->
         <!-- <Option value="disabled">禁用模式</Option> -->
       </Select>
@@ -56,7 +56,7 @@ const tableSchema = computed(() => {
   operaterSchemaRaw[0].events.click = editItem
 
   return mode.value === "edit"
-    ? selectionSchemaRaw.concat(idxSchemaRaw).concat(schemaRaw)
+    ? selectionSchemaRaw.concat(schemaRaw)
     : idxSchemaRaw.concat(schemaRaw).concat(operaterSchemaRaw)
 })
 
@@ -93,12 +93,13 @@ const paginationField = computed(() => {
   }
 })
 
-const searchField = {
-  component: 'Input',
-  placeholder: '筛选搜索...',
-  debounce: 300,
-  allowClear: true,
-}
+const searchField = false
+// const searchField = {
+//   component: 'Input',
+//   placeholder: '筛选搜索...',
+//   debounce: 300,
+//   allowClear: true,
+// }
 
 
 const onUpdateCell = ({ rowId, colId, value, origin }) => {
@@ -143,7 +144,7 @@ const submit = () => {
 const submitEdit = () => {
 
   Modal.info({
-    title: 'Info Title',
+    title: '批量提交修改',
     content: JSON.stringify(rows.value.filter(i => editRowIds.value.includes(i.id)).map(i => i.firstName + " " + i.lastName), null, 2)
   });
 
@@ -158,9 +159,9 @@ const delSelected = () => {
   // rows.value = rows.value.filter(i => !selectedRowIds.includes(i.id))
   // selectedRows.value = []
 
-  Modal.info({
-    title: 'Info Title',
-    content: JSON.stringify(selectedRows.value, null, 2)
+  Modal.error({
+    title: '确认删除吗',
+    content: JSON.stringify(selectedRows.value.map(i => i.firstName + " " + i.lastName), null, 2)
   });
 
 }
