@@ -23,7 +23,7 @@
       :sortable="false" 
       labelPosition="left" 
       :schemaColumns="tableSchema"
-      :rows="rowsRaw" 
+      :rows="rows" 
       :mode="mode" :rowsPerPage="pagination.pageSize" :paginationField="paginationField"
       :searchField="searchField" @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
 
@@ -153,16 +153,16 @@ const submitEdit = () => {
 
 const delSelected = () => {
   console.log(selectedRows.value)
-  // const selectedRowIds = selectedRows.value.map(i => i.id)
+  const selectedRowIds = selectedRows.value.map(i => i.id)
 
   // rowsRaw = rowsRaw.filter(i => !selectedRowIds.includes(i.id))
-  // rows.value = rows.value.filter(i => !selectedRowIds.includes(i.id))
-  // selectedRows.value = []
+  rows.value = rows.value.filter(i => !selectedRowIds.includes(i.id))
+  selectedRows.value = []
 
-  Modal.error({
-    title: '确认删除吗',
-    content: JSON.stringify(selectedRows.value.map(i => i.firstName + " " + i.lastName), null, 2)
-  });
+  // Modal.error({
+  //   title: '确认删除吗',
+  //   content: JSON.stringify(selectedRows.value.map(i => i.firstName + " " + i.lastName), null, 2)
+  // });
 
 }
 

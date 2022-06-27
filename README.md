@@ -23,7 +23,9 @@ const { submit } = useForm()
 // mustache表达式
 
 ===
-// 重渲染key @fix
+// 行内编辑重渲染key+失去焦点问题 @tofix
+
+
 :key="rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current" 
 ```
 
