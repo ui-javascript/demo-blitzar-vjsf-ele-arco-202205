@@ -2,10 +2,10 @@
   <div class="demo">
     <Space style="margin-bottom: 10px;">
       <Select id="mode" v-model="mode" name="mode" style="width: 250px;">
+        <Option value="raw">常规模式</Option>
         <Option value="edit">编辑模式</Option>
         <!-- <Option value="readonly">只读模式</Option> -->
         <!-- <Option value="disabled">禁用模式</Option> -->
-        <Option value="raw">普通模式</Option>
       </Select>
 
 
@@ -15,11 +15,16 @@
 
     </Space>
 
-    <BlitzTable v-model:selectedRows="selectedRows" 
-      :key="rows.map(i => i.id).join('_')" 
+    <BlitzTable 
+      :rowsPerPage="pagination.pageSize"
+      :key="rows.map(i => i.id).join('_') + '_' + mode" 
+      v-model:selectedRows="selectedRows" 
       :sortable="false"
-      labelPosition="left" :schemaColumns="tableSchema" 
-      :rows="rowsRaw" :mode="mode" :paginationField="paginationField"
+      labelPosition="left" 
+      :schemaColumns="tableSchema" 
+      :rows="rowsRaw" 
+      :mode="mode" 
+      v-model:paginationField="paginationField"
       :searchField="searchField" @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
 
     <Drawer :visible="visible" :width="500" @ok="handleOk" @cancel="handleCancel" unmountOnClose>
@@ -27,7 +32,7 @@
         编辑 {{ item.firstName }} {{ item.lastName }}
       </template>
 
-      <BlitzForm labelPosition="left" labelWidth="100px" v-model="item" mode="edit" :schema="schemaRaw"
+      <BlitzForm showErrorsOn="always" labelPosition="left" labelWidth="100px" v-model="item" mode="edit" :schema="schemaRaw"
         :columnCount="1" />
 
     </Drawer>
@@ -49,9 +54,9 @@ const rows = ref(rowsRaw)
 const tableSchema = computed(() => {
   operaterSchemaRaw[0].events.click = editItem
 
-  return mode.value === "edit" 
+  return mode.value === "edit"
     ? selectionSchemaRaw.concat(idxSchemaRaw).concat(schemaRaw).concat(operaterSchemaRaw)
-    : idxSchemaRaw.concat(schemaRaw) 
+    : idxSchemaRaw.concat(schemaRaw).concat(operaterSchemaRaw)
 })
 
 const selectedRows = ref([])
@@ -59,11 +64,41 @@ const item = ref([])
 const visible = ref(false)
 const isEdit = computed(() => mode.value === 'edit')
 
-const paginationField = {
+const pagination = ref({
+  pageSize: 10,
+  current: 1,
+})
+
+const paginationField = ref({
   component: 'Pagination',
   total: 50,
   showPageSize: true,
-}
+  pageSize: pagination.value.pageSize,
+  current: pagination.value.current,
+  value: pagination.value.current,
+  events: {
+    change: (current) => {
+      console.log("当前页码: " + current)
+      pagination.value.current = current
+    },
+    pageSizeChange: (pageSize) => {
+      console.log("每页数量: " + pageSize)
+      pagination.value.pageSize = pageSize
+    }
+  }
+})
+
+// const rowsPerPageField = {
+//   component: 'Select',
+//   style: "width: 200px;",
+//   slot: [
+//     { component: 'Option', slot: '5', style: "width: 200px;", },
+//     { component: 'Option', slot: '10', style: "width: 200px;", },
+//     { component: 'Option', slot: '20', style: "width: 200px;", },
+//     { component: 'Option', slot: '50', style: "width: 200px;", },
+//     { component: 'Option', slot: '100', style: "width: 200px;", },
+//   ],
+// }
 
 const searchField = {
   component: 'Input',
@@ -106,7 +141,8 @@ const submit = () => {
 const editItem = (_, formContext) => {
   // console.log(formContext.rowData)
   visible.value = true
-  item.value = Object.assign({}, formContext.rowData)
+  item.value = formContext.rowData
+  // item.value = Object.assign({}, formContext.rowData)
 }
 
 const submitSelected = () => {
@@ -128,7 +164,7 @@ const handleCancel = () => {
 }
 
 onMounted(() => {
-  
+
 })
 
 </script>

@@ -15,6 +15,10 @@ const { submit } = useForm()
 
 ===
 // mustache表达式
+
+===
+// 重渲染key @fix
+:key="rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current" 
 ```
 
 # 框架 @sub
