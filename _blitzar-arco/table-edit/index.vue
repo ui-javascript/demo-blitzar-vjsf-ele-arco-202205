@@ -13,15 +13,14 @@
 
       <Button v-show="isEdit" @click="submitSelected">显示勾选项</Button>
 
+      <Button v-show="isEdit" @click="submitEdit">显示编辑过的人员信息</Button>
+
     </Space>
 
-    <BlitzTable 
-      :key="rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
+    <BlitzTable :key="rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
       v-model:selectedRows="selectedRows" :sortable="false" labelPosition="left" :schemaColumns="tableSchema"
-      :rows="rowsRaw" :mode="mode" 
-      :rowsPerPage="pagination.pageSize"
-      :paginationField="paginationField" :searchField="searchField"
-      @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
+      :rows="rowsRaw" :mode="mode" :rowsPerPage="pagination.pageSize" :paginationField="paginationField"
+      :searchField="searchField" @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
 
     <Drawer :visible="visible" :width="500" @ok="handleOk" @cancel="handleCancel" unmountOnClose>
       <template #title>
@@ -56,6 +55,7 @@ const tableSchema = computed(() => {
 })
 
 const selectedRows = ref([])
+const editRowIds = ref([])
 const item = ref([])
 const visible = ref(false)
 const isEdit = computed(() => mode.value === 'edit')
@@ -87,19 +87,6 @@ const paginationField = computed(() => {
   }
 })
 
-
-// const rowsPerPageField = {
-//   component: 'Select',
-//   style: "width: 200px;",
-//   slot: [
-//     { component: 'Option', slot: '5', style: "width: 200px;", },
-//     { component: 'Option', slot: '10', style: "width: 200px;", },
-//     { component: 'Option', slot: '20', style: "width: 200px;", },
-//     { component: 'Option', slot: '50', style: "width: 200px;", },
-//     { component: 'Option', slot: '100', style: "width: 200px;", },
-//   ],
-// }
-
 const searchField = {
   component: 'Input',
   placeholder: '筛选搜索...',
@@ -109,6 +96,7 @@ const searchField = {
 
 
 const onUpdateCell = ({ rowId, colId, value, origin }) => {
+  editRowIds.value.push(rowId)
   console.log('@updateCell', { rowId, colId, value, origin })
   const row = rows.value.find((r) => r.id === rowId)
   if (!row) return
@@ -127,6 +115,17 @@ const rowDeleted = (rowIndex) => {
   rows.value.splice(rowIndex, 1)
 }
 
+
+
+
+
+const editItem = (_, formContext) => {
+  // console.log(formContext.rowData)
+  visible.value = true
+  item.value = formContext.rowData
+  // item.value = Object.assign({}, formContext.rowData)
+}
+
 const submit = () => {
   console.log(rowsRaw)
 
@@ -138,12 +137,15 @@ const submit = () => {
 }
 
 
-const editItem = (_, formContext) => {
-  // console.log(formContext.rowData)
-  visible.value = true
-  item.value = formContext.rowData
-  // item.value = Object.assign({}, formContext.rowData)
+const submitEdit = () => {
+
+  Modal.info({
+    title: 'Info Title',
+    content: JSON.stringify(rows.value.filter(i => editRowIds.value.includes(i.id)).map(i => i.firstName + " " + i.lastName), null, 2)
+  });
+
 }
+
 
 const submitSelected = () => {
   console.log(selectedRows)

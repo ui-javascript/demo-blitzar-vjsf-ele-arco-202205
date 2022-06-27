@@ -136,9 +136,10 @@ const schemaRaw = [
     },
     {
         id: "company",
-        label: "公司",
-        // component: "Textarea",
-        component: "Input",
+        label: "公司信息",
+        // component: "TextArea",
+        component: "ElInput",
+        type: "textarea",
         required: true,
         // style: 'width: 70px',
         // class: "arco-table-td arco-table-cell",
