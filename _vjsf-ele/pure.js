@@ -4,7 +4,7 @@ import 'element-plus/dist/index.css'
 
 import VueForm from '@lljj/vue3-form-element';
 
-import {jsonSchema, uiSchema} from './data/pure.data'
+import {jsonSchema, uiSchema} from './schema/pure.schema'
 
 const App = {
     name: 'App',
