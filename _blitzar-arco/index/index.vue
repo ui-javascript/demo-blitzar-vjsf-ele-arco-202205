@@ -1,38 +1,43 @@
 <template>
   <div class="demo">
-    <Space style="margin-bottom: 10px;">
-      <Select id="mode" v-model="mode" name="mode" style="width: 250px;">
-        <Option value="raw">常规模式</Option>
-        <Option value="edit">行内编辑</Option>
-      </Select>
+    <div style="margin-bottom: 10px;clear: both;">
 
-      <Button @click="submit">全部提交</Button>
+      <Space>
+        <Select id="mode" v-model="mode" name="mode" style="width: 250px;">
+          <Option value="raw">常规编辑</Option>
+          <Option value="edit">行内编辑</Option>
+        </Select>
 
-      <Button :disabled="selectedRows.length === 0" status="danger" @click="delSelected">删除勾选项</Button>
+        <Button @click="submit">查询</Button>
 
-      <Button v-show="isEdit" :disabled="editRowIds.length === 0" @click="submitEdit">提交编辑信息</Button>
+        <Button :disabled="selectedRows.length === 0" status="danger" @click="delSelected">删除勾选项</Button>
 
+        <Button v-show="isEdit" :disabled="editRowIds.length === 0" @click="submitEdit">保存编辑信息</Button>
+      </Space>
 
-    <Alert type="info" :show-icon="false" :key="editRowIds.map(i => i).join('_')"
-      v-if="isEdit">定期保存数据(画饼中~~) <IconRefresh :stroke-width="2" :style="{fontSize:'16px'}" spin/></Alert>
-    <Alert type="success" closable
-      v-if="isEdit && editRowIds.length === 0">已自动保存</Alert>
+      <Space style="float: right;">
+        <Alert type="success" closable v-if="isEdit && editRowIds.length === 0">已保存</Alert>
 
-    </Space>
+        <Alert type="info" :show-icon="false" :key="editRowIds.map(i => i).join('_')" v-if="isEdit">定期自动保存数据
+          <IconRefresh :stroke-width="3" :style="{ fontSize: '16px' }" spin />
+        </Alert>
+      </Space>
+
+    </div>
 
 
     <BlitzTable :rows="rowsRaw"
-      :key="selectedRows.map(i => i.id).join('_') + '_' + rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
+      :key="tableReloadKey + '_' +selectedRows.map(i => i.id).join('_') + '_' + rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
       v-model:selectedRows="selectedRows" :sortable="false" labelPosition="left" :schemaColumns="tableSchema"
       :mode="mode" :rowsPerPage="pagination.pageSize" :paginationField="paginationField" :searchField="searchField"
       @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
 
     <Drawer :visible="visible" :width="500" @ok="handleOk" @cancel="handleCancel" unmountOnClose>
       <template #title>
-        编辑 {{ item.firstName }} {{ item.lastName }}
+        编辑 {{ editingItem.firstName }} {{ editingItem.lastName }}
       </template>
 
-      <BlitzForm showErrorsOn="always" labelPosition="left" labelWidth="100px" v-model="item" mode="edit"
+      <BlitzForm showErrorsOn="always" labelPosition="left" labelWidth="100px" v-model="editingItem" mode="edit"
         :schema="schemaRaw" :columnCount="1" />
 
     </Drawer>
@@ -77,7 +82,8 @@ const tableSchema = computed(() => {
 
 const selectedRows = ref([])
 const editRowIds = ref([])
-const item = ref([])
+const editingItem = ref([])
+const tableReloadKey = ref(false)
 const visible = ref(false)
 const modalVisible = ref(false)
 const isEdit = computed(() => mode.value === 'edit')
@@ -156,7 +162,7 @@ const editItem = (_, formContext) => {
   visible.value = true
 
   // 数据是隔离后的副本
-  item.value = formContext.rowData
+  editingItem.value = formContext.rowData
   // item.value = Object.assign({}, formContext.rowData)
 }
 
@@ -164,7 +170,7 @@ const submit = () => {
   console.log(rowsRaw)
 
   Modal.info({
-    title: 'Info Title',
+    title: '显示全部信息',
     content: JSON.stringify(rows.value, null, 2)
   });
 
@@ -192,6 +198,8 @@ const delSelected = () => {
 
 const handleOk = () => {
   visible.value = false
+
+  
 }
 
 const handleCancel = () => {
@@ -243,11 +251,11 @@ onMounted(() => {
   }
 
 
-.arco-alert {
+  .arco-alert {
 
     padding: 4px 15px;
- 
-}
+
+  }
 
 }
 </style>
