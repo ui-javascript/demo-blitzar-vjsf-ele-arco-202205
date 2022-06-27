@@ -29,11 +29,11 @@
 import { ref } from "vue"
 import { BlitzForm } from 'blitzar'
 import 'blitzar/dist/style.css'
-import schema from './schema';
+import schemaRaw from './schema';
 
 const formData = ref({})
 const mode = ref('edit')
-
+const schema = ref(schemaRaw)
 
 const handleDelete = () => {
 
@@ -51,7 +51,7 @@ const handleSave = ({ formData, newData, oldData }) => {
 }
 
 
-const actionButtonDefaults = {
+const actionButtonDefaults = ref({
     // edit: {
     //     slot: `编辑`,
     //     component: 'Button',
@@ -68,6 +68,7 @@ const actionButtonDefaults = {
         slot: `保存`,
         component: 'Button',
         type: "outline",
+        dynamicProps: ['showCondition'],
         showCondition: (_, { mode }) => {
             // @tofix mode一直显示'edit'
             console.log(mode)
@@ -83,7 +84,7 @@ const actionButtonDefaults = {
     //     showCondition: (_, { mode }) => mode !== 'edit',
     //     // componentStyle: 'background: none; border: none; color: crimson',
     // },
-}
+})
 
 
 </script>
