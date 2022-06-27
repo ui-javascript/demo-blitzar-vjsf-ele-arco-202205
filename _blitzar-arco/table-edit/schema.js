@@ -57,25 +57,25 @@ export const operaterSchemaRaw = [
             },
         },
     },
-    {
-        component: 'Button',
-        type: "text",
-        // label: "操作栏",
-        slot: '删除',
-        status: "danger",
-        // style: 'width: 70px',
-        // class: "arco-table-td arco-table-cell",
-        sortable: false,
-        mode: 'edit',
-        // dynamicProps: ['showCondition'],
-        // showCondition: (_, { mode }) => mode === 'edit',
-        events: {
-            click: (_, formContext) => {
-                // console.log(formContext)
-                formContext.deleteRow()
-            },
-        },
-    },
+    // {
+    //     component: 'Button',
+    //     type: "text",
+    //     // label: "操作栏",
+    //     slot: '删除',
+    //     status: "danger",
+    //     // style: 'width: 70px',
+    //     // class: "arco-table-td arco-table-cell",
+    //     sortable: false,
+    //     mode: 'edit',
+    //     // dynamicProps: ['showCondition'],
+    //     // showCondition: (_, { mode }) => mode === 'edit',
+    //     events: {
+    //         click: (_, formContext) => {
+    //             // console.log(formContext)
+    //             formContext.deleteRow()
+    //         },
+    //     },
+    // },
 
     // {
     //     component: 'div',
@@ -140,6 +140,8 @@ const schemaRaw = [
         // component: "TextArea",
         component: "ElInput",
         type: "textarea",
+        rows: 1,
+        autosize: true,
         required: true,
         // style: 'width: 70px',
         // class: "arco-table-td arco-table-cell",

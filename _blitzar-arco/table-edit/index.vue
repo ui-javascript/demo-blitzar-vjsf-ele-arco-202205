@@ -11,15 +11,20 @@
 
       <Button @click="submit">全部提交</Button>
 
-      <Button v-show="isEdit" @click="submitSelected">显示勾选项</Button>
+      <Button v-show="isEdit" @click="submitEdit">提交编辑过的人员信息</Button>
 
-      <Button v-show="isEdit" @click="submitEdit">显示编辑过的人员信息</Button>
+      <Button v-show="isEdit" :disabled="selectedRows.length===0" status="danger" @click="delSelected">删除勾选项</Button>
 
     </Space>
 
-    <BlitzTable :key="rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
-      v-model:selectedRows="selectedRows" :sortable="false" labelPosition="left" :schemaColumns="tableSchema"
-      :rows="rowsRaw" :mode="mode" :rowsPerPage="pagination.pageSize" :paginationField="paginationField"
+    <BlitzTable 
+      :key="selectedRows.map(i => i.id).join('_') + '_'+ rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
+      v-model:selectedRows="selectedRows" 
+      :sortable="false" 
+      labelPosition="left" 
+      :schemaColumns="tableSchema"
+      :rows="rowsRaw" 
+      :mode="mode" :rowsPerPage="pagination.pageSize" :paginationField="paginationField"
       :searchField="searchField" @rowDeleted="rowDeleted" @updateCell="onUpdateCell" />
 
     <Drawer :visible="visible" :width="500" @ok="handleOk" @cancel="handleCancel" unmountOnClose>
@@ -41,8 +46,9 @@ import { Modal, Message } from '@arco-design/web-vue';
 import { BlitzTable, BlitzForm } from 'blitzar'
 import 'blitzar/dist/style.css'
 import schemaRaw, { operaterSchemaRaw, selectionSchemaRaw, idxSchemaRaw } from './schema'
-import rowsRaw from "./data"
+import rowsData from "./data"
 
+let rowsRaw = rowsData
 const mode = ref('raw')
 const rows = ref(rowsRaw)
 
@@ -50,7 +56,7 @@ const tableSchema = computed(() => {
   operaterSchemaRaw[0].events.click = editItem
 
   return mode.value === "edit"
-    ? selectionSchemaRaw.concat(idxSchemaRaw).concat(schemaRaw).concat(operaterSchemaRaw)
+    ? selectionSchemaRaw.concat(idxSchemaRaw).concat(schemaRaw)
     : idxSchemaRaw.concat(schemaRaw).concat(operaterSchemaRaw)
 })
 
@@ -116,9 +122,6 @@ const rowDeleted = (rowIndex) => {
 }
 
 
-
-
-
 const editItem = (_, formContext) => {
   // console.log(formContext.rowData)
   visible.value = true
@@ -147,8 +150,13 @@ const submitEdit = () => {
 }
 
 
-const submitSelected = () => {
-  console.log(selectedRows)
+const delSelected = () => {
+  console.log(selectedRows.value)
+  // const selectedRowIds = selectedRows.value.map(i => i.id)
+
+  // rowsRaw = rowsRaw.filter(i => !selectedRowIds.includes(i.id))
+  // rows.value = rows.value.filter(i => !selectedRowIds.includes(i.id))
+  // selectedRows.value = []
 
   Modal.info({
     title: 'Info Title',
@@ -191,10 +199,10 @@ onMounted(() => {
 
   :deep(th) {
     box-sizing: border-box;
-    padding: 4px;
+    // padding: 4px;
     font-size: 14px;
 
-    // padding: 9px 16px;
+    padding: 16px 4px;
     line-height: 1.5715;
     word-break: break-all;
     background-color: var(--color-neutral-2);
