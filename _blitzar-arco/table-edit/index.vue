@@ -17,7 +17,7 @@
 
     <BlitzTable 
       :key="rows.map(i => i.id).join('_') + '_' + mode + '_' + pagination.pageSize + '_' + pagination.current"
-      :selectedRows="selectedRows" :sortable="false" labelPosition="left" :schemaColumns="tableSchema"
+      v-model:selectedRows="selectedRows" :sortable="false" labelPosition="left" :schemaColumns="tableSchema"
       :rows="rowsRaw" :mode="mode" 
       :rowsPerPage="pagination.pageSize"
       :paginationField="paginationField" :searchField="searchField"
