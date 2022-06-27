@@ -5,7 +5,7 @@
         <Option value="edit">编辑模式</Option>
         <!-- <Option value="readonly">只读模式</Option> -->
         <!-- <Option value="disabled">禁用模式</Option> -->
-        <Option value="raw">阅读模式</Option>
+        <Option value="raw">文本模式</Option>
       </Select>
 
       <Button v-show="isEdit" @click="submit">全部提交</Button>
@@ -21,14 +21,14 @@
 </template>
 
 <script setup name="TableApp">
-import { ref, computed } from "vue"
+import { ref, computed, onMounted } from "vue"
 import { Modal } from '@arco-design/web-vue';
 import { BlitzTable } from 'blitzar'
 import 'blitzar/dist/style.css'
 import schemaRaw from './schema'
 import rowsRaw from "./data"
 
-const mode = ref('raw')
+const mode = ref('edit')
 const rows = ref(rowsRaw)
 const schema = ref(schemaRaw)
 const selectedRows = ref([])
@@ -59,9 +59,8 @@ const onUpdateCell = ({ rowId, colId, value, origin }) => {
 }
 
 const rowDeleted = (rowIndex) => {
-
   console.log(rowIndex)
-  console.log(rows.value)
+  // console.log(rows.value)
 
   // @tip rowsRaw不需要再操作, 框架自动处理了
   // rowsRaw.splice(rowIndex, 1)
@@ -78,6 +77,17 @@ const submit = () => {
 
 }
 
+
+// const editItem = (_, formContext) => {
+//   console.log(_, formContext)
+
+//   // Modal.info({
+//   //   title: 'Info Title',
+//   //   content: JSON.stringify(rows.value[rowIndex], null, 2)
+//   // });
+
+// }
+
 const submitSelected = () => {
   console.log(selectedRows)
 
@@ -87,6 +97,11 @@ const submitSelected = () => {
   });
 
 }
+
+onMounted(() => {
+  // 删除
+  // schema.value[schema.value.length - 1].slot[1].events.click = rowDeleted
+})
 
 </script>
 
