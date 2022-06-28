@@ -3,7 +3,7 @@ import ArcoVue from '@arco-design/web-vue';
 import '@arco-design/web-vue/dist/arco.css';
 import formCreate from '@form-create/arco-design'
 
-import rule from "./data/eventEmitOn.data"
+import rule from "./schema/eventEmitOn.schema"
 
 const App = {
     template: `

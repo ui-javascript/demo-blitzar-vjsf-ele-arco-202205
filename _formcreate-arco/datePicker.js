@@ -3,7 +3,7 @@ import ArcoVue from '@arco-design/web-vue';
 import '@arco-design/web-vue/dist/arco.css';
 import formCreate from '@form-create/arco-design'
 
-import rule from "./data/datePicker.data"
+import rule from "./schema/datePicker.schema"
 
 const App = {
     template: `
