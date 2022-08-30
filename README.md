@@ -2,6 +2,7 @@
 
 > @ps 虽然, 但是, 界面长得丑是原罪...
 
+- https://static-59728804-d890-4267-8e45-393e10b3c780.bspapp.com/#/pages/test/noteDetail?id=63093bda553eac0001a5472e
 
 ![](https://luo0412.oss-cn-hangzhou.aliyuncs.com/1656318961859-4pQXsjdm78bD-image.png)
 
